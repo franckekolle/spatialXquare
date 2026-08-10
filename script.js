@@ -40,9 +40,11 @@ const icons = {
 
 const expertiseData = [
   {
-    title: "Geophysique, exploration et cartographie",
+    title: "Géophysique, exploration et cartographie",
     icon: icons.waves,
-    accentClass: "accent-blue",cta: "En savoir plus",
+    description: "Explorer et caractériser le sous-sol pour mieux décider. Des investigations géophysiques non intrusives pour identifier les structures, anomalies et contrastes du sous-sol, réduire les incertitudes et orienter les projets miniers, hydrauliques et d’infrastructure.",
+    accentClass: "accent-blue",
+    cta: "En savoir plus",
     link: "expertises/geophysique-exploration-miniere/index.html"
   },
   {
