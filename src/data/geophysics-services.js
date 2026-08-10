@@ -1,7 +1,7 @@
 window.geophysicsPageData = {
   hero: {
     eyebrow: "Géophysique appliquée",
-    title: "Observer le sous-sol sans l’ouvrir, comprendre les anomalies et mieux décider avant les travaux.",
+    title: "Imager le sous-sol, détecter les anomalies, cibler l’exploration",
     image: "../../icons_image/geophysique/geophy1.png",
     imageAlt: "Campagne de mesure géophysique sur le terrain"
   },

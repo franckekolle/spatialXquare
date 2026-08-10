@@ -1,0 +1,44 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+env:
+  CLOUDFLARE_PROJECT_NAME: spatialxquare
+  PUBLISH_DIR: .deploy
+
+jobs:
+  deploy:
+    name: Deploy static site
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare static files
+        run: |
+          mkdir -p "$PUBLISH_DIR"
+          rsync -av \
+            --exclude ".git" \
+            --exclude ".github" \
+            --exclude ".gitignore" \
+            --exclude ".deploy" \
+            --exclude ".chrome-profile-*" \
+            --exclude "audit-*.png" \
+            --exclude "node_modules" \
+            ./ "$PUBLISH_DIR"/
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ${{ env.PUBLISH_DIR }} --project-name=${{ env.CLOUDFLARE_PROJECT_NAME }} --branch=${{ github.ref_name }}
