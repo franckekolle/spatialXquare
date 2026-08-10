@@ -23,7 +23,7 @@ window.geophysicsPageData = {
     text: "Une grande partie des informations nécessaires à un projet se trouve sous la surface et ne peut être observée directement. La géophysique permet d’explorer cette partie invisible du terrain de manière indirecte et non intrusive, en mesurant les variations de propriétés physiques des matériaux.",
     cards: [
       ["Réduire les incertitudes", "Obtenir une meilleure compréhension de la structure du sous-sol avant d’engager des investigations plus lourdes ou plus coûteuses."],
-      ["Identifier les anomalies", "Mettre en évidence des contrastes géophysiques susceptibles de correspondre à des structures géologiques, des zones fracturées, des interfaces ou des corps d’intérêt."],
+      ["Identifier les anomalies", "Mettre en évidence des contrastes géophysiques susceptibles de correspondre à des structures géologiques, des zones fracturées, des interfaces ou des corps d’intérêt"],
       ["Cibler les investigations", "Orienter plus efficacement les forages, sondages, reconnaissances géotechniques et travaux de terrain."],
       ["Sécuriser les décisions", "Fournir des éléments objectifs pour améliorer la conception et la planification des projets."]
     ]
