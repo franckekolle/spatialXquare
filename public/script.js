@@ -75,8 +75,9 @@ const expertiseData = [
   {
     title: "Data Science et solutions logicielles",
     icon: icons.data,
+    description: "Transformer les données en modèles, puis les modèles en outils opérationnels.",
     accentClass: "accent-sky",
-    link: "#logiciels"
+    link: "/expertises/data-science-solutions-logicielles/"
   }
 ];
 
