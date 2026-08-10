@@ -27,6 +27,10 @@ function valuesFor(formData, name) {
   return formData.getAll(name).filter(Boolean).join(", ");
 }
 
+function arrayFor(formData, name) {
+  return formData.getAll(name).filter(Boolean);
+}
+
 function buildRequestId() {
   const year = new Date().getFullYear();
   const suffix = String(Date.now()).slice(-5);
@@ -81,22 +85,98 @@ function buildMessage(formData, requestId) {
   return lines.join("\n");
 }
 
+function payloadFromForm(formData) {
+  return {
+    service: formData.get("service") || "",
+    project_name: formData.get("project_name") || "",
+    location: formData.get("location") || "",
+    need: formData.get("need") || "",
+    organization: formData.get("organization") || "",
+    contact_name: formData.get("contact_name") || "",
+    email: formData.get("email") || "",
+    phone: formData.get("phone") || "",
+    country: formData.get("country") || "",
+    region: formData.get("region") || "",
+    surface: formData.get("surface") || "",
+    access: formData.get("access") || "",
+    geo_objective: arrayFor(formData, "geo_objective"),
+    geo_problem: formData.get("geo_problem") || "",
+    geo_method: formData.get("geo_method") || "",
+    depth: formData.get("depth") || "",
+    profiles: formData.get("profiles") || "",
+    substance: formData.get("substance") || "",
+    exploration_history: formData.get("exploration_history") || "",
+    exploration_objectives: formData.get("exploration_objectives") || "",
+    boreholes_count: formData.get("boreholes_count") || "",
+    model_type: formData.get("model_type") || "",
+    model_data: formData.get("model_data") || "",
+    data_type: formData.get("data_type") || "",
+    data_volume: formData.get("data_volume") || "",
+    analysis_goal: formData.get("analysis_goal") || "",
+    map_scale: formData.get("map_scale") || "",
+    coordinate_system: formData.get("coordinate_system") || "",
+    map_outputs: formData.get("map_outputs") || "",
+    energy_need: arrayFor(formData, "energy_need"),
+    energy_consumption: formData.get("energy_consumption") || "",
+    water_need: formData.get("water_need") || "",
+    energy_description: formData.get("energy_description") || "",
+    available_data: arrayFor(formData, "available_data"),
+    deliverables: arrayFor(formData, "deliverables"),
+    timeline: formData.get("timeline") || "",
+    budget: formData.get("budget") || "",
+    constraints: formData.get("constraints") || "",
+    files: arrayFor(formData, "files").map((file) => ({
+      name: file.name,
+      type: file.type,
+      size: file.size
+    }))
+  };
+}
+
+function openMailFallback(formData, requestId) {
+  const subject = encodeURIComponent(`Demande de devis ${requestId} - ${formData.get("project_name") || "Projet"}`);
+  const body = encodeURIComponent(buildMessage(formData, requestId));
+
+  window.location.href = `mailto:contact_devis@spatialxquare.com?subject=${subject}&body=${body}`;
+}
+
 modeButtons.forEach((button) => {
   button.addEventListener("click", () => setMode(button.dataset.quoteMode));
 });
 
 serviceSelect.addEventListener("change", updateServicePanel);
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const formData = new FormData(form);
   const requestId = buildRequestId();
-  const subject = encodeURIComponent(`Demande de devis ${requestId} - ${formData.get("project_name") || "Projet"}`);
-  const body = encodeURIComponent(buildMessage(formData, requestId));
 
-  feedback.textContent = `Merci. Votre demande ${requestId} est prête à être transmise à notre équipe.`;
-  window.location.href = `mailto:contact_devis@spatialxquare.com?subject=${subject}&body=${body}`;
+  feedback.textContent = "Transmission de votre demande...";
+
+  try {
+    const response = await fetch("/api/requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payloadFromForm(formData))
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(result.errors?.join(" ") || "La demande n’a pas pu être enregistrée.");
+    }
+
+    feedback.textContent = `Merci. Votre demande ${result.request_id} a bien été transmise.`;
+    form.reset();
+    setMode("quick");
+    updateServicePanel();
+  } catch (error) {
+    feedback.textContent = `L’API n’est pas disponible. Ouverture de l’e-mail de secours ${requestId}.`;
+    openMailFallback(formData, requestId);
+  }
 });
 
 const params = new URLSearchParams(window.location.search);

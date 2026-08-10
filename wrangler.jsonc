@@ -1,6 +1,26 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "spatialxquare",
+  "main": "src/index.js",
   "compatibility_date": "2026-08-10",
-  "pages_build_output_dir": ".deploy"
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  }
+  /*
+  ,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "spatialxquare-db",
+      "database_id": "REMPLACER_PAR_DATABASE_ID"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSIONS",
+      "id": "REMPLACER_PAR_KV_NAMESPACE_ID"
+    }
+  ]
+  */
 }

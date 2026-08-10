@@ -1,47 +1,116 @@
 # SpatialXquare
 
-Premiere base statique du site institutionnel SpatialXquare, organisee autour d'un header fixe sombre, d'un grand Hero, de cartes d'expertises superposees, d'une section actualites, d'une presentation, de projets, de partenaires et d'un footer.
+Application SpatialXquare servie par un Cloudflare Worker unique : le meme Worker expose le site vitrine statique et les routes API dynamiques.
 
-## Fichiers principaux
+## Architecture
 
-- `index.html` : points de montage HTML de la page.
-- `styles.css` : design responsive desktop/mobile.
-- `script.js` : composants, menu mobile, recherche, donnees des expertises et actualites.
-- `decouvrir-spatialxquare.html` : page detaillee reliee au bouton "Decouvrir SpatialXquare".
-- `src/data/discover-spatialxquare.js` : donnees editoriales de la page Decouvrir.
-- `decouvrir.js` : rendu des sections et comportement video de la page Decouvrir.
-- `expertises/geophysique-exploration-miniere/index.html` : page detaillee Geophysique et exploration miniere.
-- `src/data/geophysics-services.js` : donnees de la page Geophysique.
-- `geophysics.js` : rendu de la page Geophysique.
-- `icons_image/` : images fournies pour le logo, le hero et les expertises.
-
-## Lancer en local
-
-Ouvrir directement `index.html` dans un navigateur.
-
-Pour un apercu avec serveur local :
-
-```powershell
-python -m http.server 8000
+```text
+spatialXquare/
+├── public/                  # fichiers publics servis par le Worker
+│   ├── index.html
+│   ├── styles.css
+│   ├── script.js
+│   ├── demande-devis.html
+│   ├── expertises/
+│   └── icons_image/
+├── src/
+│   ├── index.js             # point d'entree du Worker
+│   ├── auth.js              # inscription, connexion, sessions
+│   ├── dashboard.js         # route protegee du tableau de bord
+│   ├── requests.js          # reception des demandes de devis
+│   └── server/
+├── migrations/
+│   └── 0001_init.sql        # schema initial D1
+├── package.json
+└── wrangler.jsonc
 ```
 
-Puis ouvrir `http://localhost:8000`.
+## Routes
 
-## Hebergement IONOS
+- `GET /` : page d'accueil depuis `public/index.html`.
+- `GET /expertises/geophysique-exploration-miniere/` : page Geophysique.
+- `GET /expertises/energies-renouvelables-eau/` : page Energies renouvelables et eau.
+- `GET /demande-devis.html` : formulaire de demande de devis.
+- `GET /api/health` : verification API.
+- `POST /api/requests` : reception des demandes de devis.
+- `POST /api/auth/signup` : creation de compte.
+- `POST /api/auth/login` : connexion.
+- `POST /api/auth/logout` : deconnexion.
+- `GET /api/auth/me` : utilisateur connecte.
+- `GET /api/dashboard` : donnees dashboard, route protegee.
 
-Cette version est compatible avec un hebergement web statique IONOS.
+## Developpement local
 
-1. Se connecter a l'espace IONOS ou au FTP/SFTP.
-2. Envoyer `index.html`, `styles.css`, `script.js` et le dossier `icons_image/` dans le dossier web public.
-3. Verifier que le domaine pointe vers ce dossier.
-4. Activer HTTPS dans IONOS si ce n'est pas deja fait.
+Installer les dependances :
 
-Le formulaire utilise actuellement `mailto:`. Pour un envoi professionnel, il faudra ajouter une solution PHP securisee sur IONOS ou connecter un service d'e-mail.
+```bash
+npm install
+```
 
-## Prochaines etapes
+Lancer le Worker en local :
 
-- Remplacer les textes de demonstration par les textes institutionnels definitifs.
-- Ajouter les vraies coordonnees, liens sociaux et adresse e-mail.
-- Optimiser les images en `.webp` pour accelerer le chargement.
-- Ajouter les pages internes detaillees : A propos, Expertises, Projets, Solutions logicielles, Equipements, Actualites et Contact.
-- Remplacer les liens `#` des cartes par les futures pages correspondantes.
+```bash
+npm run dev
+```
+
+Puis ouvrir l'URL affichee par Wrangler.
+
+## Base de donnees et sessions
+
+Creer la base D1 :
+
+```bash
+npx wrangler d1 create spatialxquare-db
+```
+
+Creer le namespace KV pour les sessions :
+
+```bash
+npx wrangler kv namespace create SESSIONS
+```
+
+Reporter les identifiants retournes dans `wrangler.jsonc`, puis decommenter les sections `d1_databases` et `kv_namespaces`.
+
+Appliquer la migration :
+
+```bash
+npm run db:migrate:local
+npm run db:migrate:remote
+```
+
+Sans ces bindings, le site vitrine reste servi normalement. Les routes qui doivent persister des donnees repondent avec un message indiquant que la base n'est pas encore connectee.
+
+## Deploiement Cloudflare
+
+Configuration recommandee dans Cloudflare Workers avec integration Git :
+
+```text
+Build command: npm install
+Deploy command: npx wrangler deploy
+Root directory: /
+```
+
+Il ne faut plus utiliser `Output directory: .` ni `pages deploy .deploy` pour cette architecture. Les assets publics sont declares dans `wrangler.jsonc` :
+
+```jsonc
+"assets": {
+  "directory": "./public",
+  "binding": "ASSETS"
+}
+```
+
+Le Worker sert les fichiers statiques avec `env.ASSETS.fetch(request)` et intercepte les routes `/api/*`.
+
+## Workflow metier prevu
+
+```text
+Client
+→ Demande REQ
+→ Projet PROJ
+→ Analyse technique
+→ Devis DEV
+→ Versions de devis
+→ Projet accepte / refuse / termine
+```
+
+Le formulaire de devis envoie d'abord la demande vers `/api/requests`. Si l'API n'est pas disponible, il conserve un fallback e-mail vers `contact_devis@spatialxquare.com`.
