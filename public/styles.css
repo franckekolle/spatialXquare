@@ -1862,6 +1862,59 @@ input:focus-visible {
   font-weight: 950;
 }
 
+.geomodel-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.92), rgba(34, 80, 62, 0.62)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.78), rgba(6, 45, 91, 0.2));
+}
+
+.geomodel-flow.geo-flow {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.geomodel-tag-list span {
+  border-left-color: var(--green);
+}
+
+.geomodel-source-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.geomodel-source-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.geomodel-source-grid h3 {
+  margin: 0 0 14px;
+  color: var(--navy);
+}
+
+.geomodel-source-grid .data-tag-list {
+  margin-top: 0;
+}
+
+.geomodel-decision-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(34, 80, 62, 0.88)),
+    url("icons_image/ModelisationGeol/mod3.png") center / cover;
+}
+
+.geomodel-integrated-flow span:first-child,
+.geomodel-integrated-flow span:nth-child(2),
+.geomodel-integrated-flow span:nth-child(3) {
+  background: #eef8f2;
+}
+
+.geomodel-demo-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .audience-strip {
   padding: 34px 24px;
   color: var(--white);
@@ -2504,7 +2557,10 @@ input:focus-visible {
   }
 
   .data-flow.geo-flow,
-  .data-demo-grid {
+  .data-demo-grid,
+  .geomodel-flow.geo-flow,
+  .geomodel-source-grid,
+  .geomodel-demo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2769,6 +2825,9 @@ input:focus-visible {
   .energy-flow.geo-flow,
   .data-flow.geo-flow,
   .data-demo-grid,
+  .geomodel-flow.geo-flow,
+  .geomodel-source-grid,
+  .geomodel-demo-grid,
   .data-two-column {
     grid-template-columns: 1fr;
   }

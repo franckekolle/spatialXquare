@@ -54,10 +54,11 @@ const expertiseData = [
     link: "#geochimie"
   },
   {
-    title: "Modelisation geologique 3D",
+    title: "Modélisation géologique 3D",
     icon: icons.cube,
+    description: "Construire une représentation cohérente du sous-sol pour comprendre, estimer et décider.",
     accentClass: "accent-green",
-    link: "#modelisation"
+    link: "/expertises/modelisation-geologique-3d/"
   },
   {
     title: "Sondages et ressources minerales",
