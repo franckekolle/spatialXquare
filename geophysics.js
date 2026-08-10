@@ -78,8 +78,25 @@ function WorkflowSection() {
     <section class="expertise-section expertise-muted" id="workflow">
       <div class="expertise-section__inner">
         <p class="section-kicker">De la mesure au résultat</p>
-        <h2>Une chaîne complète, orientée décision</h2>
+        <h2>Mesurer, traiter, interpréter, modéliser</h2>
         ${StepFlow(geophysicsData.workflow)}
+      </div>
+    </section>
+  `;
+}
+
+function AdvancedValueSection() {
+  const { advanced } = geophysicsData;
+
+  return `
+    <section class="expertise-section" id="valorisation">
+      <div class="expertise-section__inner">
+        <p class="section-kicker">Valorisation avancée des données</p>
+        <h2>${advanced.title}</h2>
+        <p class="expertise-lead">${advanced.text}</p>
+        <div class="advanced-grid">
+          ${cardList(advanced.cards)}
+        </div>
       </div>
     </section>
   `;
@@ -108,7 +125,19 @@ function ApplicationsSection() {
 }
 
 function MethodsGrid(items) {
-  return items.map(([title, text]) => `<article><span aria-hidden="true">+</span><h3>${title}</h3><p>${text}</p></article>`).join("");
+  return items.map((method) => `
+    <article>
+      <button
+        class="method-image-button"
+        type="button"
+        aria-label="Voir l’appareil pour ${method.title}"
+        data-method-image="${method.image}"
+        data-method-title="${method.title}"
+      >+</button>
+      <h3>${method.title}</h3>
+      <p>${method.text}</p>
+    </article>
+  `).join("");
 }
 
 function MethodsSection() {
@@ -120,12 +149,23 @@ function MethodsSection() {
         <p class="section-kicker">Méthodes géophysiques</p>
         <h2>Des méthodes adaptées à chaque problématique</h2>
         <p class="expertise-lead">${methods.text}</p>
-        <h3 class="method-group-title">Méthodes actuellement opérationnelles</h3>
-        <div class="method-grid method-grid--operational">${MethodsGrid(methods.operational)}</div>
         <h3 class="method-group-title">Méthodes mobilisables selon le projet</h3>
         <div class="method-grid">${MethodsGrid(methods.mobilisable)}</div>
       </div>
     </section>
+  `;
+}
+
+function MethodImageDialog() {
+  return `
+    <div class="method-dialog" data-method-dialog hidden>
+      <button class="method-dialog__backdrop" type="button" data-method-close aria-label="Fermer l’aperçu"></button>
+      <div class="method-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="method-dialog-title">
+        <button class="method-dialog__close" type="button" data-method-close aria-label="Fermer">×</button>
+        <h2 id="method-dialog-title"></h2>
+        <img src="" alt="" data-method-dialog-image>
+      </div>
+    </div>
   `;
 }
 
@@ -136,7 +176,7 @@ function DeliverablesSection() {
         <div>
           <p class="section-kicker">Des données terrain aux résultats exploitables</p>
           <h2>Ce que nous livrons</h2>
-          <p>Les livrables traduisent les mesures en supports lisibles pour les equipes terrain, les responsables techniques et les decideurs.</p>
+          <p>Les livrables traduisent les mesures en supports lisibles pour les équipes terrain, les responsables techniques et les décideurs.</p>
         </div>
         <div class="deliverables-grid">
           ${geophysicsData.deliverables.map(([title, text]) => `<article><h3>${title}</h3><p>${text}</p></article>`).join("")}
@@ -161,19 +201,50 @@ function DecisionSection() {
 }
 
 function ReferencesSection() {
+  const { references } = geophysicsData;
+
   return `
     <section class="expertise-section" id="references">
       <div class="expertise-section__inner">
-          <p class="section-kicker">Références et expérience</p>
-          <h2>Expériences avec composante géophysique explicite</h2>
-        <div class="reference-grid">
-          ${geophysicsData.references.map((reference) => `
-            <article>
-              <h3>${reference.title}</h3>
-              <strong>${reference.meta}</strong>
-              <p>${reference.text}</p>
+        <p class="section-kicker">Références et expérience</p>
+        <h2>Expériences avec composante géophysique explicite</h2>
+        <p class="expertise-lead">${references.intro}</p>
+
+        <h3 class="reference-group-title">${references.ownedTitle}</h3>
+        <div class="reference-grid reference-grid--featured">
+          ${references.owned.map((reference) => `
+            <article class="reference-card">
+              <img src="${reference.image}" alt="" loading="lazy">
+              <div>
+                <h3>${reference.title}</h3>
+                <strong>${reference.meta}</strong>
+                <p>${reference.text}</p>
+                <span>${reference.result}</span>
+              </div>
             </article>
           `).join("")}
+        </div>
+
+        <div class="documented-projects">
+          <h3 class="reference-group-title">${references.documentedTitle}</h3>
+          <p>${references.documentedNote}</p>
+          <div class="documented-grid">
+            ${references.documented.map(([domain, zone, method, result]) => `
+              <article>
+                <span>${domain}</span>
+                <h4>${zone}</h4>
+                <strong>${method}</strong>
+                <p>${result}</p>
+              </article>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="reference-offer">
+          <h3 class="reference-group-title">${references.offerTitle}</h3>
+          <div class="overview-grid">
+            ${cardList(references.offer)}
+          </div>
         </div>
       </div>
     </section>
@@ -202,13 +273,46 @@ function renderGeophysicsPage() {
     InternalExpertiseNav(),
     WhySection(),
     WorkflowSection(),
+    AdvancedValueSection(),
     ApplicationsSection(),
     MethodsSection(),
     DeliverablesSection(),
     DecisionSection(),
     ReferencesSection(),
-    ProjectCallToAction()
+    ProjectCallToAction(),
+    MethodImageDialog()
   ].join("");
 }
 
 renderGeophysicsPage();
+
+const methodDialog = document.querySelector("[data-method-dialog]");
+const methodDialogTitle = document.querySelector("#method-dialog-title");
+const methodDialogImage = document.querySelector("[data-method-dialog-image]");
+
+function closeMethodDialog() {
+  methodDialog.hidden = true;
+  document.body.classList.remove("method-dialog-is-open");
+}
+
+document.querySelectorAll("[data-method-image]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const title = button.dataset.methodTitle;
+
+    methodDialogTitle.textContent = title;
+    methodDialogImage.src = button.dataset.methodImage;
+    methodDialogImage.alt = `Appareil utilisé pour ${title}`;
+    methodDialog.hidden = false;
+    document.body.classList.add("method-dialog-is-open");
+  });
+});
+
+document.querySelectorAll("[data-method-close]").forEach((button) => {
+  button.addEventListener("click", closeMethodDialog);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !methodDialog.hidden) {
+    closeMethodDialog();
+  }
+});
