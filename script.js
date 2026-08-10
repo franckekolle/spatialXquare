@@ -70,7 +70,7 @@ const expertiseData = [
     icon: icons.sunWater,
     description: "Des solutions autonomes, dimensionnées pour les usages réels et les conditions locales : solaire, pompage, accès à l’eau, traitement et maintenance.",
     accentClass: "accent-gold",
-    link: "expertises/energies-renouvelables-eau/index.html"
+    link: "/expertises/energies-renouvelables-eau/"
   },
   {
     title: "Data Science et solutions logicielles",
