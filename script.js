@@ -42,7 +42,7 @@ const expertiseData = [
   {
     title: "Géophysique, exploration et cartographie",
     icon: icons.waves,
-    description: "Explorer et caractériser le sous-sol pour mieux décider",
+    description: "Explorer et caractériser le sous-sol",
     accentClass: "accent-blue",
     cta: "En savoir plus",
     link: "expertises/geophysique-exploration-miniere/index.html"

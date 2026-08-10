@@ -4,7 +4,7 @@ window.geophysicsPageData = {
     title: "Géophysique appliquée",
     subtitle: "De la mesure terrain au modèle prédictif du sous-sol.",
     intro: "Nous combinons acquisition géophysique, inversion, interprétation, modélisation 3D et méthodes d’intelligence artificielle pour transformer les données du sous-sol en modèles exploitables pour la décision.",
-    statement: "Mesurer, traiter, interpréter, modéliser, prédire et décider à partir de données géophysiques et géoscientifiques fiables.",
+    statement: "Mesurer, traiter, interpréter, modéliser, prédire et décider à partir de données géophysiques et géoscientifiques fiables",
     image: "../../icons_image/geophysique/geophy1.png",
     imageAlt: "Campagne de mesure géophysique sur le terrain"
   },
