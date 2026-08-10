@@ -9,12 +9,12 @@
       content="Formulaire de pré-étude et de demande de devis pour les projets de géophysique, exploration, SIG, géomodélisation, data science, eau et énergie."
     >
     <meta name="theme-color" content="#062d5b">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png?v=4">
-    <link rel="icon" type="image/png" href="/favicon.png?v=4">
-    <link rel="shortcut icon" href="/favicon.ico?v=4">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body class="quote-page">
@@ -158,6 +158,25 @@
                   <label>Système de coordonnées <input name="coordinate_system" type="text"></label>
                 </div>
                 <label>Type de cartes ou analyses spatiales <textarea name="map_outputs" rows="3"></textarea></label>
+              </fieldset>
+
+              <fieldset data-service-panel="energie">
+                <legend>Énergies renouvelables & Eau</legend>
+                <div class="checkbox-grid">
+                  <label><input type="checkbox" name="energy_need" value="Solaire autonome"> Solaire autonome</label>
+                  <label><input type="checkbox" name="energy_need" value="Système hybride"> Système hybride</label>
+                  <label><input type="checkbox" name="energy_need" value="Pompage solaire"> Pompage solaire</label>
+                  <label><input type="checkbox" name="energy_need" value="Forage / accès à l’eau"> Forage / accès à l’eau</label>
+                  <label><input type="checkbox" name="energy_need" value="Traitement de l’eau"> Traitement de l’eau</label>
+                  <label><input type="checkbox" name="energy_need" value="Adduction / distribution"> Adduction / distribution</label>
+                  <label><input type="checkbox" name="energy_need" value="Éclairage autonome"> Éclairage autonome</label>
+                  <label><input type="checkbox" name="energy_need" value="Maintenance"> Maintenance</label>
+                </div>
+                <div class="form-grid">
+                  <label>Consommation ou puissance estimée <input name="energy_consumption" type="text" placeholder="kWh/jour, équipements, puissance"></label>
+                  <label>Besoin en eau estimé <input name="water_need" type="text" placeholder="m³/jour, débit, usages"></label>
+                </div>
+                <label>Description du système souhaité <textarea name="energy_description" rows="3"></textarea></label>
               </fieldset>
 
               <fieldset>

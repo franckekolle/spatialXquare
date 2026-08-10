@@ -66,10 +66,11 @@ const expertiseData = [
     link: "#sondages"
   },
   {
-    title: "Energies renouvelables et eau",
+    title: "Énergies renouvelables et eau",
     icon: icons.sunWater,
+    description: "Des solutions autonomes, dimensionnées pour les usages réels et les conditions locales : solaire, pompage, accès à l’eau, traitement et maintenance.",
     accentClass: "accent-gold",
-    link: "#energie"
+    link: "expertises/energies-renouvelables-eau/index.html"
   },
   {
     title: "Data Science et solutions logicielles",

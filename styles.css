@@ -1643,6 +1643,69 @@ input:focus-visible {
   margin-top: 42px;
 }
 
+.energy-card-grid,
+.energy-integration-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.energy-card-grid article,
+.energy-integration-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.energy-card-grid h3,
+.energy-integration-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+}
+
+.energy-card-grid p,
+.energy-integration-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.energy-integration-grid article {
+  color: var(--navy);
+}
+
+.energy-integration-grid p {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.energy-flow.geo-flow {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.audience-strip {
+  padding: 34px 24px;
+  color: var(--white);
+  background: var(--navy);
+}
+
+.audience-strip .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.audience-strip span {
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  font-size: 0.82rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
 .service-split {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -2254,6 +2317,15 @@ input:focus-visible {
     min-height: 0;
   }
 
+  .energy-card-grid,
+  .energy-integration-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .energy-flow.geo-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .quote-layout {
     grid-template-columns: 1fr;
   }
@@ -2504,7 +2576,10 @@ input:focus-visible {
   .reference-grid,
   .documented-grid,
   .form-grid,
-  .checkbox-grid {
+  .checkbox-grid,
+  .energy-card-grid,
+  .energy-integration-grid,
+  .energy-flow.geo-flow {
     grid-template-columns: 1fr;
   }
 
