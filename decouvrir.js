@@ -169,7 +169,7 @@ function CallToAction() {
       <div class="container">
         <h2>${data.cta.title}</h2>
         <p>${data.cta.text}</p>
-        <div>${data.cta.buttons.map((button) => `<a class="button button-primary" href="mailto:contact@spatialxquare.com">${button}</a>`).join("")}</div>
+        <div>${data.cta.buttons.map((button) => `<a class="button button-primary" href="mailto:contact_devis@spatialxquare.com">${button}</a>`).join("")}</div>
       </div>
     </section>
   `;

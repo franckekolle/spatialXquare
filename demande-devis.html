@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demande de devis | SpatialXquare</title>
+    <meta
+      name="description"
+      content="Formulaire de pré-étude et de demande de devis pour les projets de géophysique, exploration, SIG, géomodélisation, data science, eau et énergie."
+    >
+    <meta name="theme-color" content="#062d5b">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png?v=4">
+    <link rel="icon" type="image/png" href="/favicon.png?v=4">
+    <link rel="shortcut icon" href="/favicon.ico?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="quote-page">
+    <a class="skip-link" href="#main-content">Aller au contenu</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="Retour a l'accueil SpatialXquare">
+          <img class="brand-logo" src="icons_image/ima_spatialXquare1.png" alt="" width="48" height="48">
+          <span class="brand-text">
+            <span class="brand-name">SpatialXquare</span>
+            <span class="brand-signature">Earth Intelligence, Data Science & Sustainable Energy</span>
+          </span>
+        </a>
+        <div class="header-actions">
+          <a class="nav-link" href="index.html#expertises">Nos expertises</a>
+          <a class="button button-primary compact-button" href="index.html">Accueil</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="quote-main">
+      <section class="quote-hero">
+        <div class="container quote-hero__inner">
+          <p class="section-kicker">Demander un devis</p>
+          <h1>Parlez-nous de votre projet.</h1>
+          <p>Quelques informations nous permettront de comprendre votre besoin et de vous proposer une solution technique et financière adaptée.</p>
+        </div>
+      </section>
+
+      <section class="quote-section">
+        <div class="container quote-layout">
+          <aside class="quote-panel">
+            <strong>Votre demande</strong>
+            <p>Un identifiant sera généré à l’envoi pour faciliter le suivi interne de votre projet.</p>
+            <ol>
+              <li>Votre projet</li>
+              <li>Besoin technique</li>
+              <li>Localisation & données</li>
+              <li>Livrables</li>
+              <li>Planning</li>
+              <li>Coordonnées</li>
+            </ol>
+          </aside>
+
+          <form class="quote-form" data-quote-form>
+            <div class="quote-mode" role="group" aria-label="Niveau de demande">
+              <button class="is-active" type="button" data-quote-mode="quick">Demande rapide</button>
+              <button type="button" data-quote-mode="detailed">Étude détaillée</button>
+            </div>
+
+            <fieldset>
+              <legend>Votre projet</legend>
+              <label>Type de prestation
+                <select name="service" data-service-select required>
+                  <option value="">Sélectionner une prestation</option>
+                  <option value="geophysique">Géophysique appliquée</option>
+                  <option value="exploration">Exploration minière</option>
+                  <option value="eau">Recherche d’eau souterraine</option>
+                  <option value="sig">Cartographie / SIG</option>
+                  <option value="geomodelisation">Géomodélisation 3D</option>
+                  <option value="geologie">Géologie / études minières</option>
+                  <option value="forage">Gestion de campagne de forage</option>
+                  <option value="data">Data Science / IA</option>
+                  <option value="energie">Énergies renouvelables</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </label>
+              <label>Nom du projet <input name="project_name" type="text" required></label>
+              <label>Localisation du projet <input name="location" type="text" placeholder="Région, ville, coordonnées GPS si disponibles" required></label>
+              <label>Quel est votre besoin ?
+                <textarea name="need" rows="4" required></textarea>
+              </label>
+            </fieldset>
+
+            <div data-detailed-fields hidden>
+              <fieldset data-service-panel="geophysique">
+                <legend>Besoin géophysique</legend>
+                <div class="checkbox-grid">
+                  <label><input type="checkbox" name="geo_objective" value="Exploration minière"> Exploration minière</label>
+                  <label><input type="checkbox" name="geo_objective" value="Recherche d’eau souterraine"> Recherche d’eau souterraine</label>
+                  <label><input type="checkbox" name="geo_objective" value="Identification d’aquifères"> Identification d’aquifères</label>
+                  <label><input type="checkbox" name="geo_objective" value="Cartographie géologique"> Cartographie géologique</label>
+                  <label><input type="checkbox" name="geo_objective" value="Détection de fractures / failles"> Détection de fractures / failles</label>
+                  <label><input type="checkbox" name="geo_objective" value="Recherche de cavités"> Recherche de cavités</label>
+                  <label><input type="checkbox" name="geo_objective" value="Reconnaissance du sous-sol"> Reconnaissance du sous-sol</label>
+                  <label><input type="checkbox" name="geo_objective" value="Infrastructure / génie civil"> Infrastructure / génie civil</label>
+                  <label><input type="checkbox" name="geo_objective" value="Géothermie"> Géothermie</label>
+                </div>
+                <label>Description du problème <textarea name="geo_problem" rows="4"></textarea></label>
+                <label>Méthode géophysique déjà définie
+                  <select name="geo_method">
+                    <option>Je ne connais pas la méthode adaptée, recommandez-moi une solution</option>
+                    <option>Résistivité électrique / ERT</option>
+                    <option>Polarisation provoquée (IP)</option>
+                    <option>Potentiel spontané (SP)</option>
+                    <option>Magnétisme</option>
+                    <option>Électromagnétisme</option>
+                    <option>Gravimétrie</option>
+                    <option>Sismique</option>
+                    <option>Radiométrie</option>
+                  </select>
+                </label>
+                <div class="form-grid">
+                  <label>Profondeur souhaitée <input name="depth" type="text" placeholder="mètres"></label>
+                  <label>Profils / sondages approximatifs <input name="profiles" type="text"></label>
+                </div>
+              </fieldset>
+
+              <fieldset data-service-panel="exploration">
+                <legend>Exploration minière</legend>
+                <div class="form-grid">
+                  <label>Substance recherchée <input name="substance" type="text"></label>
+                  <label>Historique de l’exploration <input name="exploration_history" type="text"></label>
+                </div>
+                <label>Objectifs d’exploration <textarea name="exploration_objectives" rows="3"></textarea></label>
+              </fieldset>
+
+              <fieldset data-service-panel="geomodelisation">
+                <legend>Géomodélisation 3D</legend>
+                <div class="form-grid">
+                  <label>Nombre de sondages <input name="boreholes_count" type="text"></label>
+                  <label>Type de modèle souhaité <input name="model_type" type="text"></label>
+                </div>
+                <label>Données disponibles pour le modèle <textarea name="model_data" rows="3"></textarea></label>
+              </fieldset>
+
+              <fieldset data-service-panel="data">
+                <legend>Data Science / IA</legend>
+                <div class="form-grid">
+                  <label>Type de données <input name="data_type" type="text"></label>
+                  <label>Volume / formats <input name="data_volume" type="text"></label>
+                </div>
+                <label>Objectif d’analyse <textarea name="analysis_goal" rows="3"></textarea></label>
+              </fieldset>
+
+              <fieldset data-service-panel="sig">
+                <legend>SIG / Cartographie</legend>
+                <div class="form-grid">
+                  <label>Échelle souhaitée <input name="map_scale" type="text"></label>
+                  <label>Système de coordonnées <input name="coordinate_system" type="text"></label>
+                </div>
+                <label>Type de cartes ou analyses spatiales <textarea name="map_outputs" rows="3"></textarea></label>
+              </fieldset>
+
+              <fieldset>
+                <legend>Localisation & données</legend>
+                <div class="form-grid">
+                  <label>Pays <input name="country" type="text"></label>
+                  <label>Région / Département / Commune <input name="region" type="text"></label>
+                  <label>Surface approximative <input name="surface" type="text" placeholder="ha ou km²"></label>
+                  <label>Accessibilité
+                    <select name="access">
+                      <option>Facilement accessible</option>
+                      <option>Accessible en véhicule 4×4</option>
+                      <option>Accès difficile</option>
+                      <option>Zone forestière</option>
+                      <option>Zone montagneuse</option>
+                      <option>Zone urbaine</option>
+                    </select>
+                  </label>
+                </div>
+                <label>Fichiers disponibles <input name="files" type="file" multiple></label>
+                <div class="checkbox-grid">
+                  <label><input type="checkbox" name="available_data" value="Données géologiques"> Données géologiques</label>
+                  <label><input type="checkbox" name="available_data" value="Données géophysiques anciennes"> Données géophysiques anciennes</label>
+                  <label><input type="checkbox" name="available_data" value="Données de forage"> Données de forage</label>
+                  <label><input type="checkbox" name="available_data" value="Données hydrogéologiques"> Données hydrogéologiques</label>
+                  <label><input type="checkbox" name="available_data" value="Données topographiques"> Données topographiques</label>
+                  <label><input type="checkbox" name="available_data" value="Images satellite"> Images satellite</label>
+                  <label><input type="checkbox" name="available_data" value="Données SIG"> Données SIG</label>
+                  <label><input type="checkbox" name="available_data" value="Aucune donnée disponible"> Aucune donnée disponible</label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Livrables souhaités</legend>
+                <div class="checkbox-grid">
+                  <label><input type="checkbox" name="deliverables" value="Rapport technique"> Rapport technique</label>
+                  <label><input type="checkbox" name="deliverables" value="Cartes thématiques"> Cartes thématiques</label>
+                  <label><input type="checkbox" name="deliverables" value="Profils géophysiques"> Profils géophysiques</label>
+                  <label><input type="checkbox" name="deliverables" value="Sections 2D"> Sections 2D</label>
+                  <label><input type="checkbox" name="deliverables" value="Modèle 3D"> Modèle 3D</label>
+                  <label><input type="checkbox" name="deliverables" value="Cartographie des anomalies"> Cartographie des anomalies</label>
+                  <label><input type="checkbox" name="deliverables" value="Zones d’intérêt / cibles"> Zones d’intérêt / cibles</label>
+                  <label><input type="checkbox" name="deliverables" value="Recommandations pour forage"> Recommandations pour forage</label>
+                  <label><input type="checkbox" name="deliverables" value="Données numériques / fichiers SIG"> Données numériques / fichiers SIG</label>
+                  <label><input type="checkbox" name="deliverables" value="Présentation des résultats"> Présentation des résultats</label>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Planning & contraintes</legend>
+                <div class="form-grid">
+                  <label>Période souhaitée
+                    <select name="timeline">
+                      <option>Dès que possible</option>
+                      <option>Dans le mois</option>
+                      <option>Dans les 1–3 mois</option>
+                      <option>Dans les 3–6 mois</option>
+                      <option>Plus tard</option>
+                    </select>
+                  </label>
+                  <label>Budget indicatif
+                    <select name="budget">
+                      <option>Je souhaite recevoir une estimation</option>
+                      <option>Moins de 1 million FCFA</option>
+                      <option>1–5 millions FCFA</option>
+                      <option>5–10 millions FCFA</option>
+                      <option>10–25 millions FCFA</option>
+                      <option>Plus de 25 millions FCFA</option>
+                    </select>
+                  </label>
+                </div>
+                <label>Contraintes particulières <textarea name="constraints" rows="3"></textarea></label>
+              </fieldset>
+            </div>
+
+            <fieldset>
+              <legend>Coordonnées</legend>
+              <div class="form-grid">
+                <label>Entreprise / organisme <input name="organization" type="text"></label>
+                <label>Nom du responsable <input name="contact_name" type="text" required></label>
+                <label>E-mail <input name="email" type="email" required></label>
+                <label>Téléphone / WhatsApp <input name="phone" type="tel"></label>
+              </div>
+            </fieldset>
+
+            <div class="quote-submit">
+              <button class="button button-primary" type="submit">Envoyer ma demande</button>
+              <p data-quote-feedback aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="devis.js" defer></script>
+  </body>
+</html>

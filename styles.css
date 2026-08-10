@@ -1793,6 +1793,180 @@ input:focus-visible {
   line-height: 1;
 }
 
+.quote-page {
+  background: var(--light);
+}
+
+.quote-main {
+  padding-top: var(--header-height);
+}
+
+.quote-hero {
+  padding: 76px 0 42px;
+  color: var(--white);
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.92), rgba(0, 156, 149, 0.7)),
+    url("icons_image/geophysique/geophy1.png") center / cover;
+}
+
+.quote-hero__inner {
+  max-width: 880px;
+}
+
+.quote-hero h1 {
+  margin: 0 0 14px;
+  font-size: clamp(2.2rem, 4.6vw, 4.5rem);
+  line-height: 1.02;
+}
+
+.quote-hero p:last-child {
+  max-width: 720px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.12rem;
+}
+
+.quote-section {
+  padding: 48px 0 86px;
+}
+
+.quote-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.34fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.quote-panel,
+.quote-form {
+  background: var(--white);
+  box-shadow: 0 12px 30px rgba(4, 42, 82, 0.08);
+}
+
+.quote-panel {
+  position: sticky;
+  top: calc(var(--header-height) + 24px);
+  padding: 24px;
+  border-left: 4px solid var(--teal);
+}
+
+.quote-panel strong {
+  color: var(--navy);
+  font-size: 1.12rem;
+}
+
+.quote-panel p,
+.quote-panel li {
+  color: var(--muted);
+}
+
+.quote-panel ol {
+  margin: 18px 0 0;
+  padding-left: 20px;
+}
+
+.quote-form {
+  display: grid;
+  gap: 18px;
+  padding: clamp(20px, 3vw, 34px);
+}
+
+.quote-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quote-mode button {
+  min-height: 44px;
+  padding: 10px 16px;
+  color: var(--navy);
+  border: 1px solid var(--line);
+  background: var(--white);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.quote-mode button.is-active {
+  color: var(--white);
+  border-color: var(--navy);
+  background: var(--navy);
+}
+
+.quote-form fieldset {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+}
+
+.quote-form legend {
+  padding: 0 8px;
+  color: var(--navy);
+  font-weight: 950;
+}
+
+.quote-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--navy);
+  font-weight: 850;
+}
+
+.quote-form input,
+.quote-form select,
+.quote-form textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 12px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--white);
+  font-weight: 500;
+}
+
+.quote-form textarea {
+  resize: vertical;
+}
+
+.form-grid,
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.checkbox-grid label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 10px 12px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--light);
+  font-weight: 650;
+}
+
+.checkbox-grid input {
+  width: auto;
+  min-height: 0;
+}
+
+.quote-submit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.quote-submit p {
+  margin: 0;
+  color: var(--teal);
+  font-weight: 850;
+}
+
 .expertise-cta {
   padding: 84px 24px;
   color: var(--white);
@@ -2071,6 +2245,14 @@ input:focus-visible {
     min-height: 0;
   }
 
+  .quote-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-panel {
+    position: static;
+  }
+
   .split-section.image-left .split-section__image,
   .service-split.image-left .service-split__image {
     order: -1;
@@ -2311,8 +2493,18 @@ input:focus-visible {
   .geo-flow,
   .geo-flow--compact,
   .reference-grid,
-  .documented-grid {
+  .documented-grid,
+  .form-grid,
+  .checkbox-grid {
     grid-template-columns: 1fr;
+  }
+
+  .quote-section {
+    padding: 34px 0 62px;
+  }
+
+  .quote-form fieldset {
+    padding: 18px;
   }
 
   .split-section__image,

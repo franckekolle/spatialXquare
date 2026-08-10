@@ -37,7 +37,7 @@ function GeophysicsHero() {
         <strong>${hero.statement}</strong>
         <div class="hero-actions">
           <a class="button button-primary" href="#applications">Explorer les applications</a>
-          <a class="button button-secondary" href="#devis">Discuter d’un projet</a>
+          <a class="button button-secondary" href="/demande-devis.html?service=geophysique">Discuter d’un projet</a>
         </div>
       </div>
     </section>
@@ -260,7 +260,8 @@ function ProjectCallToAction() {
         <h2>${cta.title}</h2>
         <p>${cta.text}</p>
         <div>
-          ${cta.buttons.map((button) => `<a class="button button-primary" href="mailto:contact@spatialxquare.com">${button}</a>`).join("")}
+          <a class="button button-primary" href="/demande-devis.html?service=geophysique">${cta.buttons[0]}</a>
+          <a class="button button-primary" href="/demande-devis.html?service=geophysique">${cta.buttons[1]}</a>
         </div>
       </div>
     </section>
