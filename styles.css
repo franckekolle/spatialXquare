@@ -1968,10 +1968,19 @@ input:focus-visible {
 }
 
 .expertise-cta {
+  position: relative;
   padding: 84px 24px;
+  overflow: hidden;
   color: var(--white);
   text-align: center;
-  background: var(--navy);
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(6, 45, 91, 0.82)),
+    url("icons_image/carte_mond.png") center / cover no-repeat;
+}
+
+.expertise-cta .container {
+  position: relative;
+  z-index: 1;
 }
 
 .expertise-cta h2 {
