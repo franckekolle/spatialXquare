@@ -3,6 +3,8 @@ const surpacPath = "/expertises/formations-operationnelles/geovia-surpac/";
 const leapfrogPath = "/expertises/formations-operationnelles/leapfrog-geo/";
 const vulcanPath = "/expertises/formations-operationnelles/maptek-vulcan/";
 const dataminePath = "/expertises/formations-operationnelles/datamine-studio-rm/";
+const microminePath = "/expertises/formations-operationnelles/micromine-origin-beyond/";
+const geostatPath = "/expertises/formations-operationnelles/geostatistique-data-science/";
 
 function TrainingCards(items, className = "") {
   return items.map(([title, text]) => `<article class="${className}"><h3>${title}</h3><p>${text}</p></article>`).join("");
@@ -124,6 +126,17 @@ function AcademiesSection() {
                 <a class="training-card-link" href="${leapfrogPath}">Parcours Leapfrog</a>
                 <a class="training-card-link" href="${vulcanPath}">Parcours Vulcan</a>
                 <a class="training-card-link" href="${dataminePath}">Parcours Datamine</a>
+                <a class="training-card-link" href="${microminePath}">Parcours Micromine</a>
+              </div>
+            ` : ""}
+            ${title === "Data Science for Geosciences" ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${geostatPath}">Académie Géostatistique & Data Science</a>
+              </div>
+            ` : ""}
+            ${title === "Geostatistics & Resource Estimation" ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${geostatPath}">Académie Géostatistique & Data Science</a>
               </div>
             ` : ""}
           </article>
@@ -150,6 +163,8 @@ function SoftwareTracksSection() {
             ${title === "Leapfrog Geo" ? `<a class="training-card-link" href="${leapfrogPath}">Ouvrir le parcours Leapfrog Geo</a>` : ""}
             ${title === "Maptek Vulcan" ? `<a class="training-card-link" href="${vulcanPath}">Ouvrir le parcours Maptek Vulcan</a>` : ""}
             ${title === "Datamine Studio RM" ? `<a class="training-card-link" href="${dataminePath}">Ouvrir le parcours Datamine Studio RM</a>` : ""}
+            ${title === "Micromine" ? `<a class="training-card-link" href="${microminePath}">Ouvrir le parcours Micromine</a>` : ""}
+            ${title === "Supervisor & Isatis.neo" ? `<a class="training-card-link" href="${geostatPath}">Ouvrir l’académie Géostatistique & Data Science</a>` : ""}
           </article>
         `).join("")}
       </div>
@@ -202,6 +217,12 @@ function ProjectBasedSection() {
                 <a class="training-card-link" href="${leapfrogPath}">Architecture Leapfrog</a>
                 <a class="training-card-link" href="${vulcanPath}">Architecture Vulcan</a>
                 <a class="training-card-link" href="${dataminePath}">Architecture Datamine</a>
+                <a class="training-card-link" href="${microminePath}">Architecture Micromine</a>
+              </div>
+            ` : ""}
+            ${index === 1 ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${geostatPath}">Architecture Géostatistique & Data Science</a>
               </div>
             ` : ""}
           </article>
