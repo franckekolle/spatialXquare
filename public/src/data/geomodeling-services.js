@@ -5,7 +5,21 @@ window.geomodelingPageData = {
     subtitle: "De données dispersées à une représentation cohérente du sous-sol.",
     intro: "Nous intégrons les données géologiques, géophysiques, de forage et spatiales afin de construire des modèles 3D cohérents de la géométrie et de l’organisation du sous-sol. Ces modèles permettent de mieux comprendre les structures, quantifier les volumes, analyser les incertitudes et fournir une base solide aux décisions d’exploration et d’ingénierie.",
     statement: "Du terrain au modèle, du modèle à la décision.",
-    image: "../../icons_image/ModelisationGeol/mod1.png"
+    image: "../../icons_image/ModelisationGeol/mod16.png"
+  },
+  media: {
+    overview: "../../icons_image/ModelisationGeol/mod1.png",
+    workflow: "../../icons_image/ModelisationGeol/mod2.png",
+    sources: "../../icons_image/ModelisationGeol/mod3.png",
+    construction: "../../icons_image/ModelisationGeol/mod4.png",
+    structural: "../../icons_image/ModelisationGeol/mod5.png",
+    quantification: "../../icons_image/ModelisationGeol/mod6.png",
+    uncertainty: "../../icons_image/ModelisationGeol/mod7.png",
+    advanced: "../../icons_image/ModelisationGeol/mod8.png",
+    integration: "../../icons_image/ModelisationGeol/mod9.png",
+    visualization: "../../icons_image/ModelisationGeol/mod10.png",
+    planning: "../../icons_image/ModelisationGeol/mod11.png",
+    deliverables: "../../icons_image/ModelisationGeol/mod12.png"
   },
   nav: [
     ["Pourquoi", "#pourquoi"],
@@ -44,7 +58,7 @@ window.geomodelingPageData = {
     ["Données spatiales", ["MNT", "Topographie", "SIG", "Imagerie", "Cartographie", "Limites de projet"]]
   ],
   construction: {
-    image: "../../icons_image/ModelisationGeol/mod2.png",
+    image: "../../icons_image/ModelisationGeol/mod4.png",
     cards: [
       ["Modélisation structurale 3D", "Failles, contacts, plis, discontinuités, intrusions, surfaces géologiques et orientation des structures."],
       ["Modélisation des unités géologiques", "Corrélation des lithologies, faciès, formations, altérations, domaines structuraux et zones minéralisées."],
@@ -53,7 +67,7 @@ window.geomodelingPageData = {
     ]
   },
   quantification: {
-    image: "../../icons_image/ModelisationGeol/mod3.png",
+    image: "../../icons_image/ModelisationGeol/mod6.png",
     cards: [
       ["Block models & représentation volumétrique", "Discrétisation du volume d’étude en cellules auxquelles sont associés des attributs géologiques, statistiques ou économiques."],
       ["Estimation & distribution spatiale", "Analyse statistique, compositage, domaining, interpolation, estimation et validation lorsque les données le permettent."],
@@ -73,13 +87,18 @@ window.geomodelingPageData = {
     ]
   },
   advanced: {
-    image: "../../icons_image/ModelisationGeol/mod4.png",
+    image: "../../icons_image/ModelisationGeol/mod8.png",
     cards: [
       ["IA & géologie augmentée", "Utiliser l’IA pour renforcer l’interprétation, détecter des relations complexes et proposer des zones d’intérêt sans remplacer le géologue."],
       ["Cartographie prédictive & ciblage", "Intégrer géologie, géophysique, géochimie, topographie et données spatiales pour hiérarchiser les secteurs favorables."],
       ["Géologue dans la boucle", "Automatisation ne signifie pas décision automatique : la cohérence géologique reste contrôlée par l’expertise humaine."],
       ["Validation terrain", "Confronter les hypothèses aux observations : nouveaux sondages, cartographie, échantillonnage ou investigations géophysiques."]
     ]
+  },
+  planning: {
+    title: "Du modèle géologique à la planification",
+    text: "Le modèle géologique constitue l’une des principales entrées des études techniques ultérieures : estimation, géotechnique, hydrogéologie, conception ou planification. Il sert à comparer les scénarios sans faire croire que toutes les étapes de planification minière sont systématiquement incluses.",
+    flow: ["Modèle géologique", "Block model", "Estimation", "Scénarios", "Planification"]
   },
   applications: [
     ["Exploration minière", "Comprendre la géométrie des formations et structures, identifier les extensions possibles et améliorer le ciblage des sondages."],
@@ -100,7 +119,7 @@ window.geomodelingPageData = {
       badge: "Démonstrateur 01",
       domain: "Gisement aurifère",
       title: "Modélisation structurale et lithologique 3D",
-      image: "../../icons_image/ModelisationGeol/mod5.png",
+      image: "../../icons_image/ModelisationGeol/mod12.png",
       problem: "Comprendre la relation entre veines minéralisées, structures et données de forage.",
       data: "Forages, lithologies, teneurs, failles et cartographie.",
       result: "Modèle 3D, domaines minéralisés, sections, zones d’extension et cibles de sondage."
@@ -109,7 +128,7 @@ window.geomodelingPageData = {
       badge: "Démonstrateur 02",
       domain: "Fer",
       title: "Modèle géologique et block model",
-      image: "../../icons_image/ModelisationGeol/mod6.png",
+      image: "../../icons_image/ModelisationGeol/mod13.png",
       problem: "Construire la géométrie d’un corps minéralisé et préparer le support d’une estimation spatiale.",
       data: "Surfaces, solides, lithologies, analyses, densités et contraintes géologiques.",
       result: "Block model, volumes, sections et support d’estimation."
@@ -118,7 +137,7 @@ window.geomodelingPageData = {
       badge: "Démonstrateur 03",
       domain: "Hydrogéologie",
       title: "Modèle 3D d’un système aquifère",
-      image: "../../icons_image/ModelisationGeol/mod2.png",
+      image: "../../icons_image/ModelisationGeol/mod14.png",
       problem: "Représenter les formations et structures susceptibles de contrôler la circulation des eaux.",
       data: "Forages, logs, géophysique électrique, topographie et niveaux d’eau.",
       result: "Modèle des principales unités, structures et zones d’intérêt hydrogéologique."
@@ -127,7 +146,7 @@ window.geomodelingPageData = {
       badge: "Démonstrateur 04",
       domain: "IA & exploration",
       title: "Cartographie prédictive de prospectivité",
-      image: "../../icons_image/ModelisationGeol/mod4.png",
+      image: "../../icons_image/ModelisationGeol/mod15.png",
       problem: "Prioriser les secteurs favorables à partir de données multi-sources.",
       data: "Géologie, géophysique, géochimie, structures, topographie et indices connus.",
       result: "Carte de probabilité, facteurs explicatifs, zones prioritaires et cibles."
@@ -136,7 +155,7 @@ window.geomodelingPageData = {
       badge: "Démonstrateur 05",
       domain: "Mise à jour progressive",
       title: "Modèle géologique évolutif",
-      image: "../../icons_image/ModelisationGeol/mod1.png",
+      image: "../../icons_image/ModelisationGeol/mod11.png",
       problem: "Actualiser la représentation du sous-sol à mesure que les campagnes produisent de nouvelles données.",
       data: "Campagne 1, nouveaux sondages, nouvelles données géophysiques et observations terrain.",
       result: "Modèle V1, V2 puis V3 avec historique des hypothèses et décisions associées."

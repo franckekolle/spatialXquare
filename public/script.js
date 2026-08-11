@@ -48,10 +48,11 @@ const expertiseData = [
     link: "expertises/geophysique-exploration-miniere/index.html"
   },
   {
-    title: "Geochimie et caracterisation des materiaux",
+    title: "Formations opérationnelles",
     icon: icons.flask,
+    description: "Formations aux logiciels miniers, SIG, traitement de données et workflows techniques.",
     accentClass: "accent-teal",
-    link: "#geochimie"
+    link: "#formations"
   },
   {
     title: "Modélisation géologique 3D",
@@ -61,10 +62,11 @@ const expertiseData = [
     link: "/expertises/modelisation-geologique-3d/"
   },
   {
-    title: "Sondages et ressources minerales",
+    title: "Solutions logicielles & SIG",
     icon: icons.drill,
+    description: "Applications métier, outils SIG, automatisation et solutions numériques pour les projets techniques.",
     accentClass: "accent-orange",
-    link: "#sondages"
+    link: "#solutions-sig"
   },
   {
     title: "Énergies renouvelables et eau",

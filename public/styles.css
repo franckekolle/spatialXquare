@@ -1902,7 +1902,7 @@ input:focus-visible {
 .geomodel-decision-band {
   background:
     linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(34, 80, 62, 0.88)),
-    url("icons_image/ModelisationGeol/mod3.png") center / cover;
+    url("icons_image/ModelisationGeol/mod7.png") center / cover;
 }
 
 .geomodel-integrated-flow span:first-child,
@@ -1913,6 +1913,234 @@ input:focus-visible {
 
 .geomodel-demo-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.geomodel-hero__content {
+  max-width: 1040px;
+}
+
+.geomodel-hero__rail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.geomodel-hero__rail span {
+  padding: 8px 10px;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.geomodel-section-head {
+  display: grid;
+  gap: 12px;
+  max-width: 920px;
+}
+
+.geomodel-section-head h2,
+.geomodel-split h2,
+.geomodel-stage h2,
+.geomodel-planning h2,
+.geomodel-data-link h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
+  line-height: 1.06;
+}
+
+.geomodel-section-head p:not(.section-kicker),
+.geomodel-split p,
+.geomodel-stage p,
+.geomodel-planning p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.geomodel-split,
+.geomodel-stage,
+.geomodel-planning,
+.geomodel-data-link {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(34px, 5vw, 74px);
+}
+
+.geomodel-split.image-left,
+.geomodel-stage--reverse {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.geomodel-image-panel {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--navy);
+  box-shadow: var(--shadow);
+}
+
+.geomodel-image-panel img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+}
+
+.geomodel-image-panel figcaption {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  max-width: min(420px, calc(100% - 28px));
+  padding: 9px 11px;
+  color: var(--white);
+  background: rgba(6, 45, 91, 0.78);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.geomodel-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.geomodel-card-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.geomodel-card-grid--five {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.geomodel-card-grid article,
+.geomodel-data-link,
+.geomodel-planning {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.geomodel-card-grid h3,
+.geomodel-planning h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.geomodel-card-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.geomodel-workflow-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.38fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.geomodel-stage__copy {
+  display: grid;
+  gap: 14px;
+}
+
+.geomodel-stage__media {
+  display: grid;
+  grid-template-columns: 1fr 0.72fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.geomodel-stage__media .geomodel-image-panel:first-child {
+  align-self: stretch;
+}
+
+.geomodel-stage__media .geomodel-image-panel:first-child img {
+  height: 100%;
+}
+
+.geomodel-stage__media .geomodel-image-panel:nth-child(2) {
+  align-self: end;
+}
+
+.geomodel-linear-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.geomodel-linear-flow span {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 9px 12px;
+  color: var(--navy);
+  border: 1px solid rgba(105, 180, 45, 0.28);
+  background: #f6fbf2;
+  font-weight: 950;
+}
+
+.geomodel-linear-flow span:not(:last-child)::after {
+  margin-left: 8px;
+  color: var(--green);
+  content: "→";
+}
+
+.geomodel-linear-flow--light span {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.geomodel-linear-flow--light span::after {
+  color: var(--gold);
+}
+
+.geomodel-linear-flow--compact {
+  margin-top: 12px;
+}
+
+.geomodel-risk-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.45fr);
+  align-items: center;
+}
+
+.geomodel-risk-layout .geomodel-linear-flow {
+  margin-top: 0;
+}
+
+.geomodel-planning {
+  margin-top: 34px;
+}
+
+.geomodel-planning .geomodel-image-panel {
+  box-shadow: none;
+}
+
+.geomodel-data-link {
+  margin-top: 34px;
+}
+
+.geomodel-data-link .data-tag-list {
+  margin-top: 0;
+}
+
+.geomodel-demo-card img {
+  aspect-ratio: 16 / 9;
 }
 
 .audience-strip {
@@ -2560,13 +2788,28 @@ input:focus-visible {
   .data-demo-grid,
   .geomodel-flow.geo-flow,
   .geomodel-source-grid,
+  .geomodel-card-grid,
+  .geomodel-card-grid--four,
+  .geomodel-card-grid--five,
   .geomodel-demo-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .data-decision-layout,
-  .data-two-column {
+  .data-two-column,
+  .geomodel-split,
+  .geomodel-split.image-left,
+  .geomodel-stage,
+  .geomodel-stage--reverse,
+  .geomodel-workflow-layout,
+  .geomodel-planning,
+  .geomodel-data-link,
+  .geomodel-risk-layout {
     grid-template-columns: 1fr;
+  }
+
+  .geomodel-stage__media {
+    grid-template-columns: 1fr 1fr;
   }
 
   .quote-layout {
@@ -2827,9 +3070,49 @@ input:focus-visible {
   .data-demo-grid,
   .geomodel-flow.geo-flow,
   .geomodel-source-grid,
+  .geomodel-card-grid,
+  .geomodel-card-grid--four,
+  .geomodel-card-grid--five,
   .geomodel-demo-grid,
+  .geomodel-split,
+  .geomodel-split.image-left,
+  .geomodel-stage,
+  .geomodel-stage--reverse,
+  .geomodel-workflow-layout,
+  .geomodel-planning,
+  .geomodel-data-link,
+  .geomodel-risk-layout,
+  .geomodel-stage__media,
   .data-two-column {
     grid-template-columns: 1fr;
+  }
+
+  .geomodel-hero__rail {
+    justify-content: flex-start;
+  }
+
+  .geomodel-image-panel figcaption {
+    position: static;
+    max-width: none;
+    background: var(--navy);
+  }
+
+  .geomodel-linear-flow {
+    display: grid;
+    gap: 22px;
+  }
+
+  .geomodel-linear-flow span {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .geomodel-linear-flow span:not(:last-child)::after {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    margin-left: 0;
+    transform: translateX(-50%) rotate(90deg);
   }
 
   .quote-section {
