@@ -2999,6 +2999,207 @@ input:focus-visible {
     url("icons_image/icon_formation/geostat/geostat10.png") center / cover no-repeat;
 }
 
+.planning-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(196, 143, 48, 0.64)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.84), rgba(6, 45, 91, 0.16));
+}
+
+.planning-tags span {
+  border-left-color: #c48f30;
+}
+
+.planning-path span,
+.planning-module-card .surpac-module-card__top span {
+  background: #c48f30;
+}
+
+.planning-gateway-grid,
+.planning-software-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.planning-gateway-grid,
+.planning-software-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.planning-gateway-grid article,
+.planning-software-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.planning-gateway-grid span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #c48f30;
+  font-weight: 950;
+}
+
+.planning-gateway-grid h3,
+.planning-software-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+}
+
+.planning-gateway-grid p,
+.planning-software-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.planning-gateway-grid a {
+  display: inline-flex;
+  margin-top: 16px;
+  color: var(--blue);
+  font-weight: 950;
+}
+
+.planning-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(196, 143, 48, 0.76)),
+    url("icons_image/icon_formation/planing/planing5.png") center / cover;
+}
+
+.planning-project-flow span {
+  border-left: 5px solid #c48f30;
+}
+
+.planning-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(196, 143, 48, 0.74)),
+    url("icons_image/icon_formation/planing/planing10.png") center / cover no-repeat;
+}
+
+.gis-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(0, 136, 129, 0.66)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.84), rgba(6, 45, 91, 0.16));
+}
+
+.gis-tags span {
+  border-left-color: var(--teal);
+}
+
+.gis-path {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.gis-path article {
+  min-height: 168px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.05);
+}
+
+.gis-path span,
+.gis-module-card .surpac-module-card__top span {
+  display: inline-grid;
+  min-width: 36px;
+  height: 36px;
+  place-items: center;
+  margin-bottom: 12px;
+  background: var(--teal);
+  color: var(--white);
+  font-weight: 950;
+}
+
+.gis-path h3 {
+  margin: 0 0 8px;
+  color: var(--navy);
+  font-size: 1rem;
+  line-height: 1.28;
+}
+
+.gis-path p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.gis-gateway-grid,
+.gis-profile-grid,
+.gis-innovation-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.gis-gateway-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.gis-profile-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gis-innovation-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gis-gateway-grid article,
+.gis-profile-grid article,
+.gis-innovation-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.gis-gateway-grid span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--teal);
+  font-weight: 950;
+}
+
+.gis-gateway-grid h3,
+.gis-profile-grid h3,
+.gis-innovation-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+}
+
+.gis-gateway-grid p,
+.gis-profile-grid p,
+.gis-innovation-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.gis-gateway-grid a {
+  display: inline-flex;
+  margin-top: 16px;
+  color: var(--blue);
+  font-weight: 950;
+}
+
+.gis-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(0, 136, 129, 0.76)),
+    url("icons_image/icon_formation/sig/sig5.png") center / cover;
+}
+
+.gis-project-flow span {
+  border-left: 5px solid var(--teal);
+}
+
+.gis-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(0, 136, 129, 0.74)),
+    url("icons_image/icon_formation/sig/sig10.png") center / cover no-repeat;
+}
+
 .audience-strip {
   padding: 34px 24px;
   color: var(--white);
@@ -3702,7 +3903,13 @@ input:focus-visible {
   .micromine-gateway-grid,
   .geostat-path,
   .geostat-gateway-grid,
-  .geostat-software-grid {
+  .geostat-software-grid,
+  .planning-gateway-grid,
+  .planning-software-grid,
+  .gis-path,
+  .gis-gateway-grid,
+  .gis-profile-grid,
+  .gis-innovation-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -4003,6 +4210,12 @@ input:focus-visible {
   .geostat-path,
   .geostat-gateway-grid,
   .geostat-software-grid,
+  .planning-gateway-grid,
+  .planning-software-grid,
+  .gis-path,
+  .gis-gateway-grid,
+  .gis-profile-grid,
+  .gis-innovation-grid,
   .data-two-column {
     grid-template-columns: 1fr;
   }

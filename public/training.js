@@ -5,6 +5,8 @@ const vulcanPath = "/expertises/formations-operationnelles/maptek-vulcan/";
 const dataminePath = "/expertises/formations-operationnelles/datamine-studio-rm/";
 const microminePath = "/expertises/formations-operationnelles/micromine-origin-beyond/";
 const geostatPath = "/expertises/formations-operationnelles/geostatistique-data-science/";
+const planningPath = "/expertises/formations-operationnelles/planification-optimisation-miniere/";
+const gisPath = "/expertises/formations-operationnelles/gis-geospatial-academy/";
 
 function TrainingCards(items, className = "") {
   return items.map(([title, text]) => `<article class="${className}"><h3>${title}</h3><p>${text}</p></article>`).join("");
@@ -139,6 +141,16 @@ function AcademiesSection() {
                 <a class="training-card-link" href="${geostatPath}">Académie Géostatistique & Data Science</a>
               </div>
             ` : ""}
+            ${title === "Mining Engineering Academy" ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${planningPath}">Académie Planification & Optimisation</a>
+              </div>
+            ` : ""}
+            ${title === "GIS & Geospatial Academy" ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${gisPath}">Académie GIS & Geospatial</a>
+              </div>
+            ` : ""}
           </article>
         `).join("")}
       </div>
@@ -165,6 +177,8 @@ function SoftwareTracksSection() {
             ${title === "Datamine Studio RM" ? `<a class="training-card-link" href="${dataminePath}">Ouvrir le parcours Datamine Studio RM</a>` : ""}
             ${title === "Micromine" ? `<a class="training-card-link" href="${microminePath}">Ouvrir le parcours Micromine</a>` : ""}
             ${title === "Supervisor & Isatis.neo" ? `<a class="training-card-link" href="${geostatPath}">Ouvrir l’académie Géostatistique & Data Science</a>` : ""}
+            ${title === "Whittle & MineSched" ? `<a class="training-card-link" href="${planningPath}">Ouvrir l’académie Planification & Optimisation</a>` : ""}
+            ${title === "ArcGIS Pro & QGIS" ? `<a class="training-card-link" href="${gisPath}">Ouvrir l’académie GIS & Geospatial</a>` : ""}
           </article>
         `).join("")}
       </div>
@@ -223,6 +237,16 @@ function ProjectBasedSection() {
             ${index === 1 ? `
               <div class="training-card-actions">
                 <a class="training-card-link" href="${geostatPath}">Architecture Géostatistique & Data Science</a>
+              </div>
+            ` : ""}
+            ${index === 3 ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${planningPath}">Architecture Planification & Optimisation</a>
+              </div>
+            ` : ""}
+            ${index === 2 ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${gisPath}">Architecture GIS & Geospatial</a>
               </div>
             ` : ""}
           </article>
