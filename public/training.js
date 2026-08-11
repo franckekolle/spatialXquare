@@ -173,21 +173,45 @@ function SoftwareTracksSection() {
         <p>La disponibilité d’une formation dépend du niveau demandé, de la version du logiciel et des compétences formateurs mobilisables pour la session.</p>
       </div>
       <div class="expertise-section__inner training-card-grid">
-        ${trainingData.softwareTracks.map(([title, text]) => `
-          <article>
-            <h3>${title}</h3>
-            <p>${text}</p>
-            ${title === "GEOVIA Surpac" ? `<a class="training-card-link" href="${surpacPath}">Ouvrir le parcours GEOVIA Surpac</a>` : ""}
-            ${title === "Leapfrog Geo" ? `<a class="training-card-link" href="${leapfrogPath}">Ouvrir le parcours Leapfrog Geo</a>` : ""}
-            ${title === "Maptek Vulcan" ? `<a class="training-card-link" href="${vulcanPath}">Ouvrir le parcours Maptek Vulcan</a>` : ""}
-            ${title === "Datamine Studio RM" ? `<a class="training-card-link" href="${dataminePath}">Ouvrir le parcours Datamine Studio RM</a>` : ""}
-            ${title === "Micromine" ? `<a class="training-card-link" href="${microminePath}">Ouvrir le parcours Micromine</a>` : ""}
-            ${title === "Supervisor & Isatis.neo" ? `<a class="training-card-link" href="${geostatPath}">Ouvrir l’académie Géostatistique & Data Science</a>` : ""}
-            ${title === "Whittle & MineSched" ? `<a class="training-card-link" href="${planningPath}">Ouvrir l’académie Planification & Optimisation</a>` : ""}
-            ${title === "ArcGIS Pro & QGIS" ? `<a class="training-card-link" href="${gisPath}">Ouvrir l’académie GIS & Geospatial</a>` : ""}
-            ${title === "AutoCAD & SolidWorks" ? `<a class="training-card-link" href="${cadPath}">Ouvrir l’académie Engineering & CAD</a>` : ""}
-          </article>
-        `).join("")}
+        ${trainingData.softwareTracks.map(([title, text]) => {
+          if (title === "ArcGIS Pro & QGIS") {
+            return `
+              <a class="training-linked-card" href="${gisPath}">
+                <article>
+                  <h3>${title}</h3>
+                  <p>${text}</p>
+                  <span class="training-card-link">Ouvrir l’académie GIS & Geospatial</span>
+                </article>
+              </a>
+            `;
+          }
+
+          if (title === "Datamine") {
+            return `
+              <a class="training-linked-card" href="${dataminePath}">
+                <article>
+                  <h3>${title}</h3>
+                  <p>${text}</p>
+                  <span class="training-card-link">Ouvrir le parcours Datamine Studio RM</span>
+                </article>
+              </a>
+            `;
+          }
+
+          return `
+            <article>
+              <h3>${title}</h3>
+              <p>${text}</p>
+              ${title === "GEOVIA Surpac" ? `<a class="training-card-link" href="${surpacPath}">Ouvrir le parcours GEOVIA Surpac</a>` : ""}
+              ${title === "Leapfrog Geo" ? `<a class="training-card-link" href="${leapfrogPath}">Ouvrir le parcours Leapfrog Geo</a>` : ""}
+              ${title === "Maptek Vulcan" ? `<a class="training-card-link" href="${vulcanPath}">Ouvrir le parcours Maptek Vulcan</a>` : ""}
+              ${title === "Micromine" ? `<a class="training-card-link" href="${microminePath}">Ouvrir le parcours Micromine</a>` : ""}
+              ${title === "Supervisor & Isatis.neo" ? `<a class="training-card-link" href="${geostatPath}">Ouvrir l’académie Géostatistique & Data Science</a>` : ""}
+              ${title === "Whittle & MineSched" ? `<a class="training-card-link" href="${planningPath}">Ouvrir l’académie Planification & Optimisation</a>` : ""}
+              ${title === "AutoCAD & SolidWorks" ? `<a class="training-card-link" href="${cadPath}">Ouvrir l’académie Engineering & CAD</a>` : ""}
+            </article>
+          `;
+        }).join("")}
       </div>
     </section>
   `;
@@ -341,6 +365,7 @@ function CatalogSection() {
             <h3>${title}</h3>
             <p>${text}</p>
             ${title === "Planification minière" ? `<a class="training-card-link" href="${planningPath}">Ouvrir l’académie Planification & Optimisation</a>` : ""}
+            ${title === "SIG & données spatiales" ? `<a class="training-card-link" href="${gisPath}">Ouvrir l’académie GIS & Geospatial</a>` : ""}
             ${title === "CAO & ingénierie" ? `<a class="training-card-link" href="${cadPath}">Ouvrir l’académie Engineering & CAD</a>` : ""}
           </article>
         `).join("")}
