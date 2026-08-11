@@ -2660,6 +2660,160 @@ input:focus-visible {
     url("icons_image/icon_formation/leapfrog/leapfrog9.png") center / cover no-repeat;
 }
 
+.vulcan-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(239, 121, 23, 0.58)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.8), rgba(6, 45, 91, 0.18));
+}
+
+.vulcan-tags span {
+  border-left-color: var(--orange);
+}
+
+.vulcan-path span,
+.vulcan-module-card .surpac-module-card__top span {
+  background: var(--orange);
+}
+
+.vulcan-gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.vulcan-gateway-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.vulcan-gateway-grid span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--orange);
+  font-weight: 950;
+}
+
+.vulcan-gateway-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+}
+
+.vulcan-gateway-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.vulcan-gateway-grid a {
+  display: inline-flex;
+  margin-top: 16px;
+  color: var(--blue);
+  font-weight: 950;
+}
+
+.vulcan-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(239, 121, 23, 0.68)),
+    url("icons_image/icon_formation/vulcan/vulcan5.png") center / cover;
+}
+
+.vulcan-project-flow span {
+  border-left: 5px solid var(--orange);
+}
+
+.vulcan-design-media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.vulcan-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(239, 121, 23, 0.7)),
+    url("icons_image/icon_formation/vulcan/vulcan11.png") center / cover no-repeat;
+}
+
+.datamine-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(20, 121, 147, 0.64)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.82), rgba(6, 45, 91, 0.18));
+}
+
+.datamine-tags span {
+  border-left-color: var(--teal);
+}
+
+.datamine-path span,
+.datamine-module-card .surpac-module-card__top span {
+  background: var(--teal);
+}
+
+.datamine-gateway-grid,
+.datamine-bridge-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.datamine-bridge-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.datamine-gateway-grid article,
+.datamine-bridge-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.datamine-gateway-grid span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--teal);
+  font-weight: 950;
+}
+
+.datamine-gateway-grid h3,
+.datamine-bridge-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+}
+
+.datamine-gateway-grid p,
+.datamine-bridge-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.datamine-gateway-grid a {
+  display: inline-flex;
+  margin-top: 16px;
+  color: var(--blue);
+  font-weight: 950;
+}
+
+.datamine-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(20, 121, 147, 0.72)),
+    url("icons_image/icon_formation/Datamine/datamine5.png") center / cover;
+}
+
+.datamine-project-flow span {
+  border-left: 5px solid var(--teal);
+}
+
+.datamine-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(20, 121, 147, 0.74)),
+    url("icons_image/icon_formation/Datamine/datamine10.png") center / cover no-repeat;
+}
+
 .audience-strip {
   padding: 34px 24px;
   color: var(--white);
@@ -3355,7 +3509,11 @@ input:focus-visible {
   }
 
   .surpac-path,
-  .surpac-position-grid {
+  .surpac-position-grid,
+  .vulcan-gateway-grid,
+  .vulcan-design-media,
+  .datamine-gateway-grid,
+  .datamine-bridge-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -3648,6 +3806,10 @@ input:focus-visible {
   .surpac-module-layout,
   .surpac-path,
   .surpac-position-grid,
+  .vulcan-gateway-grid,
+  .vulcan-design-media,
+  .datamine-gateway-grid,
+  .datamine-bridge-grid,
   .data-two-column {
     grid-template-columns: 1fr;
   }

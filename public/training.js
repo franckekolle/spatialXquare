@@ -1,6 +1,8 @@
 const trainingData = window.trainingPageData;
 const surpacPath = "/expertises/formations-operationnelles/geovia-surpac/";
 const leapfrogPath = "/expertises/formations-operationnelles/leapfrog-geo/";
+const vulcanPath = "/expertises/formations-operationnelles/maptek-vulcan/";
+const dataminePath = "/expertises/formations-operationnelles/datamine-studio-rm/";
 
 function TrainingCards(items, className = "") {
   return items.map(([title, text]) => `<article class="${className}"><h3>${title}</h3><p>${text}</p></article>`).join("");
@@ -120,6 +122,8 @@ function AcademiesSection() {
               <div class="training-card-actions">
                 <a class="training-card-link" href="${surpacPath}">Parcours Surpac</a>
                 <a class="training-card-link" href="${leapfrogPath}">Parcours Leapfrog</a>
+                <a class="training-card-link" href="${vulcanPath}">Parcours Vulcan</a>
+                <a class="training-card-link" href="${dataminePath}">Parcours Datamine</a>
               </div>
             ` : ""}
           </article>
@@ -144,6 +148,8 @@ function SoftwareTracksSection() {
             <p>${text}</p>
             ${title === "GEOVIA Surpac" ? `<a class="training-card-link" href="${surpacPath}">Ouvrir le parcours GEOVIA Surpac</a>` : ""}
             ${title === "Leapfrog Geo" ? `<a class="training-card-link" href="${leapfrogPath}">Ouvrir le parcours Leapfrog Geo</a>` : ""}
+            ${title === "Maptek Vulcan" ? `<a class="training-card-link" href="${vulcanPath}">Ouvrir le parcours Maptek Vulcan</a>` : ""}
+            ${title === "Datamine Studio RM" ? `<a class="training-card-link" href="${dataminePath}">Ouvrir le parcours Datamine Studio RM</a>` : ""}
           </article>
         `).join("")}
       </div>
@@ -194,6 +200,8 @@ function ProjectBasedSection() {
               <div class="training-card-actions">
                 <a class="training-card-link" href="${surpacPath}">Architecture Surpac</a>
                 <a class="training-card-link" href="${leapfrogPath}">Architecture Leapfrog</a>
+                <a class="training-card-link" href="${vulcanPath}">Architecture Vulcan</a>
+                <a class="training-card-link" href="${dataminePath}">Architecture Datamine</a>
               </div>
             ` : ""}
           </article>
