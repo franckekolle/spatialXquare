@@ -7,6 +7,7 @@ const microminePath = "/expertises/formations-operationnelles/micromine-origin-b
 const geostatPath = "/expertises/formations-operationnelles/geostatistique-data-science/";
 const planningPath = "/expertises/formations-operationnelles/planification-optimisation-miniere/";
 const gisPath = "/expertises/formations-operationnelles/gis-geospatial-academy/";
+const cadPath = "/expertises/formations-operationnelles/engineering-cad-academy/";
 
 function TrainingCards(items, className = "") {
   return items.map(([title, text]) => `<article class="${className}"><h3>${title}</h3><p>${text}</p></article>`).join("");
@@ -151,6 +152,11 @@ function AcademiesSection() {
                 <a class="training-card-link" href="${gisPath}">Académie GIS & Geospatial</a>
               </div>
             ` : ""}
+            ${title === "Engineering & CAD" ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${cadPath}">Académie Engineering & CAD</a>
+              </div>
+            ` : ""}
           </article>
         `).join("")}
       </div>
@@ -179,6 +185,7 @@ function SoftwareTracksSection() {
             ${title === "Supervisor & Isatis.neo" ? `<a class="training-card-link" href="${geostatPath}">Ouvrir l’académie Géostatistique & Data Science</a>` : ""}
             ${title === "Whittle & MineSched" ? `<a class="training-card-link" href="${planningPath}">Ouvrir l’académie Planification & Optimisation</a>` : ""}
             ${title === "ArcGIS Pro & QGIS" ? `<a class="training-card-link" href="${gisPath}">Ouvrir l’académie GIS & Geospatial</a>` : ""}
+            ${title === "AutoCAD & SolidWorks" ? `<a class="training-card-link" href="${cadPath}">Ouvrir l’académie Engineering & CAD</a>` : ""}
           </article>
         `).join("")}
       </div>
@@ -329,7 +336,14 @@ function CatalogSection() {
         </div>
       </div>
       <div class="expertise-section__inner training-catalog-grid">
-        ${trainingData.catalog.map(([title, text]) => `<article><h3>${title}</h3><p>${text}</p></article>`).join("")}
+        ${trainingData.catalog.map(([title, text]) => `
+          <article>
+            <h3>${title}</h3>
+            <p>${text}</p>
+            ${title === "Planification minière" ? `<a class="training-card-link" href="${planningPath}">Ouvrir l’académie Planification & Optimisation</a>` : ""}
+            ${title === "CAO & ingénierie" ? `<a class="training-card-link" href="${cadPath}">Ouvrir l’académie Engineering & CAD</a>` : ""}
+          </article>
+        `).join("")}
       </div>
     </section>
   `;
