@@ -1,4 +1,5 @@
 const trainingData = window.trainingPageData;
+const surpacPath = "/expertises/formations-operationnelles/geovia-surpac/";
 
 function TrainingCards(items, className = "") {
   return items.map(([title, text]) => `<article class="${className}"><h3>${title}</h3><p>${text}</p></article>`).join("");
@@ -109,11 +110,12 @@ function AcademiesSection() {
         </div>
       </div>
       <div class="expertise-section__inner training-academy-grid">
-        ${trainingData.academies.map(([number, title, text]) => `
+        ${trainingData.academies.map(([number, title, text], index) => `
           <article>
             <span>${number}</span>
             <h3>${title}</h3>
             <p>${text}</p>
+            ${index === 0 ? `<a class="training-card-link" href="${surpacPath}">Voir le parcours Surpac</a>` : ""}
           </article>
         `).join("")}
       </div>
@@ -130,7 +132,13 @@ function SoftwareTracksSection() {
         <p>La disponibilité d’une formation dépend du niveau demandé, de la version du logiciel et des compétences formateurs mobilisables pour la session.</p>
       </div>
       <div class="expertise-section__inner training-card-grid">
-        ${TrainingCards(trainingData.softwareTracks)}
+        ${trainingData.softwareTracks.map(([title, text]) => `
+          <article>
+            <h3>${title}</h3>
+            <p>${text}</p>
+            ${title === "GEOVIA Surpac" ? `<a class="training-card-link" href="${surpacPath}">Ouvrir le parcours GEOVIA Surpac</a>` : ""}
+          </article>
+        `).join("")}
       </div>
     </section>
   `;
@@ -170,11 +178,12 @@ function ProjectBasedSection() {
     </section>
     <section class="expertise-section">
       <div class="expertise-section__inner training-project-grid">
-        ${trainingData.projectBased.map(([title, duration, flow]) => `
+        ${trainingData.projectBased.map(([title, duration, flow], index) => `
           <article>
             <span>${duration}</span>
             <h3>${title}</h3>
             <p>${flow}</p>
+            ${index === 0 ? `<a class="training-card-link" href="${surpacPath}">Voir l’architecture pédagogique</a>` : ""}
           </article>
         `).join("")}
       </div>
