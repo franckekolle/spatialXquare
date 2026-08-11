@@ -9,6 +9,9 @@ const planningPath = "/expertises/formations-operationnelles/planification-optim
 const gisPath = "/expertises/formations-operationnelles/gis-geospatial-academy/";
 const cadPath = "/expertises/formations-operationnelles/engineering-cad-academy/";
 const geodataBootcampsPath = "/expertises/formations-operationnelles/bootcamps-donnees-geosciences/";
+const resourceGeologistPath = "/expertises/formations-operationnelles/parcours-geologue-ressources/";
+const iogasPath = "/expertises/formations-operationnelles/iogas-geochemical-bootcamps/";
+const managerPath = "/expertises/formations-operationnelles/manager-technique-decision/";
 
 function TrainingCards(items, className = "") {
   return items.map(([title, text]) => `<article class="${className}"><h3>${title}</h3><p>${text}</p></article>`).join("");
@@ -158,6 +161,11 @@ function AcademiesSection() {
                 <a class="training-card-link" href="${cadPath}">Académie Engineering & CAD</a>
               </div>
             ` : ""}
+            ${title === "Geological Data & Exploration" ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${iogasPath}">Bootcamps ioGAS & géochimie</a>
+              </div>
+            ` : ""}
           </article>
         `).join("")}
       </div>
@@ -211,6 +219,18 @@ function SoftwareTracksSection() {
             `;
           }
 
+          if (title === "ioGAS") {
+            return `
+              <a class="training-linked-card" href="${iogasPath}">
+                <article>
+                  <h3>${title}</h3>
+                  <p>${text}</p>
+                  <span class="training-card-link">Ouvrir les bootcamps ioGAS</span>
+                </article>
+              </a>
+            `;
+          }
+
           return `
             <article>
               <h3>${title}</h3>
@@ -241,14 +261,30 @@ function JobTracksSection() {
         ${TrainingImage(trainingData.media.jobs, "Parcours adaptés aux fonctions techniques")}
       </div>
       <div class="expertise-section__inner training-card-grid">
-        ${trainingData.jobTracks.map(([title, text]) => `
+        ${trainingData.jobTracks.map(([title, text]) => {
+          if (title === "Manager technique") {
+            return `
+              <a class="training-linked-card" href="${managerPath}">
+                <article>
+                  <h3>${title}</h3>
+                  <p>${text}</p>
+                  <span class="training-card-link">Ouvrir le parcours Manager technique</span>
+                </article>
+              </a>
+            `;
+          }
+
+          return `
           <article>
             <h3>${title}</h3>
             <p>${text}</p>
             ${title === "Géologue d’exploration" ? `<a class="training-card-link" href="#formations-geologie-modelisation">En savoir plus</a>` : ""}
+            ${title === "Géologue ressources" ? `<a class="training-card-link" href="${resourceGeologistPath}">En savoir plus</a>` : ""}
+            ${title === "Ingénieur minier" ? `<a class="training-card-link" href="${planningPath}">En savoir plus</a>` : ""}
             ${title === "Gestionnaire de données" ? `<a class="training-card-link" href="${geodataBootcampsPath}">En savoir plus</a>` : ""}
           </article>
-        `).join("")}
+        `;
+        }).join("")}
       </div>
     </section>
   `;
@@ -386,6 +422,7 @@ function CatalogSection() {
             ${title === "Planification minière" ? `<a class="training-card-link" href="${planningPath}">Ouvrir l’académie Planification & Optimisation</a>` : ""}
             ${title === "SIG & données spatiales" ? `<a class="training-card-link" href="${gisPath}">Ouvrir l’académie GIS & Geospatial</a>` : ""}
             ${title === "CAO & ingénierie" ? `<a class="training-card-link" href="${cadPath}">Ouvrir l’académie Engineering & CAD</a>` : ""}
+            ${title === "Géochimie" ? `<a class="training-card-link" href="${iogasPath}">Ouvrir les bootcamps ioGAS</a>` : ""}
           </article>
         `).join("")}
       </div>

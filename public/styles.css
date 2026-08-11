@@ -3419,6 +3419,252 @@ input:focus-visible {
     url("icons_image/data_science/data_science_7.png") center / cover no-repeat;
 }
 
+.resource-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(97, 139, 91, 0.66)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.84), rgba(6, 45, 91, 0.16));
+}
+
+.resource-tags span {
+  border-left-color: #618b5b;
+}
+
+.resource-card-grid,
+.resource-software-grid,
+.resource-path-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.resource-card-grid,
+.resource-software-grid,
+.resource-path-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.resource-card-grid article,
+.resource-software-grid article,
+.resource-path-grid article {
+  height: 100%;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.resource-path-grid article span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #618b5b;
+  font-weight: 950;
+}
+
+.resource-card-grid h3,
+.resource-software-grid h3,
+.resource-path-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+  line-height: 1.22;
+}
+
+.resource-card-grid p,
+.resource-software-grid p,
+.resource-path-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.resource-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(97, 139, 91, 0.76)),
+    url("icons_image/icon_formation/planing/planing3.png") center / cover;
+}
+
+.resource-link-stack {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.resource-link-stack .training-card-link {
+  margin-top: 0;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.resource-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(97, 139, 91, 0.74)),
+    url("icons_image/icon_formation/geostat/geostat10.png") center / cover no-repeat;
+}
+
+.iogas-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(176, 101, 46, 0.68)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.84), rgba(6, 45, 91, 0.16));
+}
+
+.iogas-tags span {
+  border-left-color: #b0652e;
+}
+
+.iogas-gateway-grid,
+.iogas-module-grid,
+.iogas-bridge-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.iogas-gateway-grid,
+.iogas-bridge-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.iogas-module-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.iogas-gateway-grid article,
+.iogas-module-grid article,
+.iogas-bridge-grid article {
+  height: 100%;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.iogas-gateway-grid span,
+.iogas-module-grid article > span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #b0652e;
+  font-weight: 950;
+}
+
+.iogas-module-grid strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--teal);
+}
+
+.iogas-gateway-grid h3,
+.iogas-module-grid h3,
+.iogas-bridge-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+  line-height: 1.22;
+}
+
+.iogas-gateway-grid p,
+.iogas-module-grid p,
+.iogas-bridge-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.iogas-gateway-grid a {
+  display: inline-flex;
+  margin-top: 16px;
+  color: var(--blue);
+  font-weight: 950;
+}
+
+.iogas-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(176, 101, 46, 0.76)),
+    url("icons_image/icon_formation/iogas/iogas5.png") center / cover;
+}
+
+.iogas-project-flow span {
+  border-left: 5px solid #b0652e;
+}
+
+.iogas-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(176, 101, 46, 0.74)),
+    url("icons_image/icon_formation/iogas/iogas10.png") center / cover no-repeat;
+}
+
+.manager-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(73, 109, 141, 0.68)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.84), rgba(6, 45, 91, 0.16));
+}
+
+.manager-tags span {
+  border-left-color: #496d8d;
+}
+
+.manager-card-grid,
+.manager-module-grid,
+.manager-link-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.manager-card-grid,
+.manager-link-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.manager-module-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.manager-card-grid article,
+.manager-module-grid article,
+.manager-link-grid article {
+  height: 100%;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.manager-module-grid article span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #496d8d;
+  font-weight: 950;
+}
+
+.manager-card-grid h3,
+.manager-module-grid h3,
+.manager-link-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+  line-height: 1.22;
+}
+
+.manager-card-grid p,
+.manager-module-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.manager-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(73, 109, 141, 0.76)),
+    url("icons_image/icon_formation/manager/manager13.png") center / cover;
+}
+
+.manager-project-flow span {
+  border-left: 5px solid #496d8d;
+}
+
+.manager-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(73, 109, 141, 0.74)),
+    url("icons_image/icon_formation/manager/manager12.png") center / cover no-repeat;
+}
+
 .audience-strip {
   padding: 34px 24px;
   color: var(--white);
@@ -4135,7 +4381,16 @@ input:focus-visible {
   .cad-profile-grid,
   .geodata-bootcamp-grid,
   .geodata-path-grid,
-  .geodata-links-grid {
+  .geodata-links-grid,
+  .resource-card-grid,
+  .resource-software-grid,
+  .resource-path-grid,
+  .iogas-gateway-grid,
+  .iogas-module-grid,
+  .iogas-bridge-grid,
+  .manager-card-grid,
+  .manager-module-grid,
+  .manager-link-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -4449,6 +4704,15 @@ input:focus-visible {
   .geodata-bootcamp-grid,
   .geodata-path-grid,
   .geodata-links-grid,
+  .resource-card-grid,
+  .resource-software-grid,
+  .resource-path-grid,
+  .iogas-gateway-grid,
+  .iogas-module-grid,
+  .iogas-bridge-grid,
+  .manager-card-grid,
+  .manager-module-grid,
+  .manager-link-grid,
   .data-two-column {
     grid-template-columns: 1fr;
   }
