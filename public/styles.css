@@ -3343,6 +3343,82 @@ input:focus-visible {
     url("icons_image/icon_formation/cad/cad10.png") center / cover no-repeat;
 }
 
+.geodata-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(26, 131, 167, 0.66)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.84), rgba(6, 45, 91, 0.16));
+}
+
+.geodata-tags span {
+  border-left-color: #1a83a7;
+}
+
+.geodata-bootcamp-grid,
+.geodata-path-grid,
+.geodata-links-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.geodata-bootcamp-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.geodata-path-grid,
+.geodata-links-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.geodata-bootcamp-grid article,
+.geodata-path-grid article,
+.geodata-links-grid article {
+  height: 100%;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.geodata-bootcamp-grid > article > span,
+.geodata-path-grid article span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #1a83a7;
+  font-weight: 950;
+}
+
+.geodata-bootcamp-grid h3,
+.geodata-path-grid h3,
+.geodata-links-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+  line-height: 1.22;
+}
+
+.geodata-bootcamp-grid p,
+.geodata-path-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.geodata-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(26, 131, 167, 0.76)),
+    url("icons_image/data_science/data_science_5.png") center / cover;
+}
+
+.geodata-project-flow span {
+  border-left: 5px solid #1a83a7;
+}
+
+.geodata-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(26, 131, 167, 0.74)),
+    url("icons_image/data_science/data_science_7.png") center / cover no-repeat;
+}
+
 .audience-strip {
   padding: 34px 24px;
   color: var(--white);
@@ -4056,7 +4132,10 @@ input:focus-visible {
   .cad-path,
   .cad-gateway-grid,
   .cad-software-grid,
-  .cad-profile-grid {
+  .cad-profile-grid,
+  .geodata-bootcamp-grid,
+  .geodata-path-grid,
+  .geodata-links-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -4367,6 +4446,9 @@ input:focus-visible {
   .cad-gateway-grid,
   .cad-software-grid,
   .cad-profile-grid,
+  .geodata-bootcamp-grid,
+  .geodata-path-grid,
+  .geodata-links-grid,
   .data-two-column {
     grid-template-columns: 1fr;
   }

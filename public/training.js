@@ -8,6 +8,7 @@ const geostatPath = "/expertises/formations-operationnelles/geostatistique-data-
 const planningPath = "/expertises/formations-operationnelles/planification-optimisation-miniere/";
 const gisPath = "/expertises/formations-operationnelles/gis-geospatial-academy/";
 const cadPath = "/expertises/formations-operationnelles/engineering-cad-academy/";
+const geodataBootcampsPath = "/expertises/formations-operationnelles/bootcamps-donnees-geosciences/";
 
 function TrainingCards(items, className = "") {
   return items.map(([title, text]) => `<article class="${className}"><h3>${title}</h3><p>${text}</p></article>`).join("");
@@ -119,7 +120,7 @@ function AcademiesSection() {
       </div>
       <div class="expertise-section__inner training-academy-grid">
         ${trainingData.academies.map(([number, title, text], index) => `
-          <article>
+          <article ${index === 0 ? `id="formations-geologie-modelisation"` : ""}>
             <span>${number}</span>
             <h3>${title}</h3>
             <p>${text}</p>
@@ -198,6 +199,18 @@ function SoftwareTracksSection() {
             `;
           }
 
+          if (title === "AutoCAD & SolidWorks") {
+            return `
+              <a class="training-linked-card" href="${cadPath}">
+                <article>
+                  <h3>${title}</h3>
+                  <p>${text}</p>
+                  <span class="training-card-link">Ouvrir l’académie Engineering & CAD</span>
+                </article>
+              </a>
+            `;
+          }
+
           return `
             <article>
               <h3>${title}</h3>
@@ -208,7 +221,6 @@ function SoftwareTracksSection() {
               ${title === "Micromine" ? `<a class="training-card-link" href="${microminePath}">Ouvrir le parcours Micromine</a>` : ""}
               ${title === "Supervisor & Isatis.neo" ? `<a class="training-card-link" href="${geostatPath}">Ouvrir l’académie Géostatistique & Data Science</a>` : ""}
               ${title === "Whittle & MineSched" ? `<a class="training-card-link" href="${planningPath}">Ouvrir l’académie Planification & Optimisation</a>` : ""}
-              ${title === "AutoCAD & SolidWorks" ? `<a class="training-card-link" href="${cadPath}">Ouvrir l’académie Engineering & CAD</a>` : ""}
             </article>
           `;
         }).join("")}
@@ -229,7 +241,14 @@ function JobTracksSection() {
         ${TrainingImage(trainingData.media.jobs, "Parcours adaptés aux fonctions techniques")}
       </div>
       <div class="expertise-section__inner training-card-grid">
-        ${TrainingCards(trainingData.jobTracks)}
+        ${trainingData.jobTracks.map(([title, text]) => `
+          <article>
+            <h3>${title}</h3>
+            <p>${text}</p>
+            ${title === "Géologue d’exploration" ? `<a class="training-card-link" href="#formations-geologie-modelisation">En savoir plus</a>` : ""}
+            ${title === "Gestionnaire de données" ? `<a class="training-card-link" href="${geodataBootcampsPath}">En savoir plus</a>` : ""}
+          </article>
+        `).join("")}
       </div>
     </section>
   `;
