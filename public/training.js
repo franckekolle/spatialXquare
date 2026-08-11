@@ -1,5 +1,6 @@
 const trainingData = window.trainingPageData;
 const surpacPath = "/expertises/formations-operationnelles/geovia-surpac/";
+const leapfrogPath = "/expertises/formations-operationnelles/leapfrog-geo/";
 
 function TrainingCards(items, className = "") {
   return items.map(([title, text]) => `<article class="${className}"><h3>${title}</h3><p>${text}</p></article>`).join("");
@@ -115,7 +116,12 @@ function AcademiesSection() {
             <span>${number}</span>
             <h3>${title}</h3>
             <p>${text}</p>
-            ${index === 0 ? `<a class="training-card-link" href="${surpacPath}">Voir le parcours Surpac</a>` : ""}
+            ${index === 0 ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${surpacPath}">Parcours Surpac</a>
+                <a class="training-card-link" href="${leapfrogPath}">Parcours Leapfrog</a>
+              </div>
+            ` : ""}
           </article>
         `).join("")}
       </div>
@@ -137,6 +143,7 @@ function SoftwareTracksSection() {
             <h3>${title}</h3>
             <p>${text}</p>
             ${title === "GEOVIA Surpac" ? `<a class="training-card-link" href="${surpacPath}">Ouvrir le parcours GEOVIA Surpac</a>` : ""}
+            ${title === "Leapfrog Geo" ? `<a class="training-card-link" href="${leapfrogPath}">Ouvrir le parcours Leapfrog Geo</a>` : ""}
           </article>
         `).join("")}
       </div>
@@ -183,7 +190,12 @@ function ProjectBasedSection() {
             <span>${duration}</span>
             <h3>${title}</h3>
             <p>${flow}</p>
-            ${index === 0 ? `<a class="training-card-link" href="${surpacPath}">Voir l’architecture pédagogique</a>` : ""}
+            ${index === 0 ? `
+              <div class="training-card-actions">
+                <a class="training-card-link" href="${surpacPath}">Architecture Surpac</a>
+                <a class="training-card-link" href="${leapfrogPath}">Architecture Leapfrog</a>
+              </div>
+            ` : ""}
           </article>
         `).join("")}
       </div>

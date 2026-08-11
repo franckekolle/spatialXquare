@@ -2389,6 +2389,17 @@ input:focus-visible {
   font-weight: 950;
 }
 
+.training-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.training-card-actions .training-card-link {
+  margin-top: 0;
+}
+
 .surpac-hero .expertise-hero__overlay {
   background:
     linear-gradient(90deg, rgba(6, 45, 91, 0.95), rgba(0, 92, 168, 0.62)),
@@ -2612,6 +2623,41 @@ input:focus-visible {
   background:
     linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(0, 92, 168, 0.74)),
     url("icons_image/icon_formation/surpac/surpac10.png") center / cover no-repeat;
+}
+
+.leapfrog-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.95), rgba(0, 156, 149, 0.58)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.78), rgba(6, 45, 91, 0.16));
+}
+
+.leapfrog-path span,
+.leapfrog-module-card .surpac-module-card__top span {
+  background: var(--teal);
+}
+
+.leapfrog-tags span {
+  border-left-color: var(--teal);
+}
+
+.leapfrog-project-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(0, 156, 149, 0.76)),
+    url("icons_image/icon_formation/leapfrog/leapfrog4.png") center / cover;
+}
+
+.leapfrog-project-flow span {
+  border-left: 5px solid var(--teal);
+}
+
+.leapfrog-position-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.leapfrog-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(0, 156, 149, 0.74)),
+    url("icons_image/icon_formation/leapfrog/leapfrog9.png") center / cover no-repeat;
 }
 
 .audience-strip {
