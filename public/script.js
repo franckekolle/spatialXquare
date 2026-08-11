@@ -50,9 +50,9 @@ const expertiseData = [
   {
     title: "Formations opérationnelles",
     icon: icons.flask,
-    description: "Formations aux logiciels miniers, SIG, traitement de données et workflows techniques.",
+    description: "Formation & renforcement des capacités pour les métiers géoscientifiques, miniers, SIG et Data.",
     accentClass: "accent-teal",
-    link: "#formations"
+    link: "/expertises/formations-operationnelles/"
   },
   {
     title: "Modélisation géologique 3D",

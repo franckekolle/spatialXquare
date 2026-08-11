@@ -2143,6 +2143,245 @@ input:focus-visible {
   aspect-ratio: 16 / 9;
 }
 
+.training-hero .expertise-hero__overlay {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(0, 156, 149, 0.58)),
+    linear-gradient(0deg, rgba(6, 45, 91, 0.78), rgba(6, 45, 91, 0.18));
+}
+
+.training-hero__content {
+  max-width: 1060px;
+}
+
+.training-hero__rail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.training-hero__rail span {
+  padding: 8px 10px;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.training-section-head {
+  display: grid;
+  gap: 12px;
+  max-width: 940px;
+}
+
+.training-section-head h2,
+.training-split h2,
+.training-decision-layout h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
+  line-height: 1.06;
+}
+
+.training-section-head p:not(.section-kicker),
+.training-split p,
+.training-decision-layout p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.training-split,
+.training-workflow-layout,
+.training-decision-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(34px, 5vw, 74px);
+}
+
+.training-split.image-left {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.training-image {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--navy);
+  box-shadow: var(--shadow);
+}
+
+.training-image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.training-image figcaption {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  max-width: min(420px, calc(100% - 28px));
+  padding: 9px 11px;
+  color: var(--white);
+  background: rgba(6, 45, 91, 0.78);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.training-card-grid,
+.training-academy-grid,
+.training-project-grid,
+.training-catalog-grid,
+.training-special-grid,
+.training-levels {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.training-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.training-card-grid--four,
+.training-project-grid,
+.training-catalog-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.training-academy-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.training-special-grid,
+.training-levels {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.training-card-grid article,
+.training-academy-grid article,
+.training-project-grid article,
+.training-catalog-grid article,
+.training-levels article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.training-card-grid h3,
+.training-academy-grid h3,
+.training-project-grid h3,
+.training-catalog-grid h3,
+.training-levels h3,
+.training-special-grid h3 {
+  margin: 0 0 10px;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.training-card-grid p,
+.training-academy-grid p,
+.training-project-grid p,
+.training-catalog-grid p,
+.training-levels p,
+.training-special-grid p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.58;
+}
+
+.training-academy-grid article span,
+.training-project-grid article span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--teal);
+  font-weight: 950;
+}
+
+.training-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.training-flow article {
+  min-height: 188px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.training-flow span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  margin-bottom: 14px;
+  color: var(--white);
+  border-radius: 50%;
+  background: var(--teal);
+  font-weight: 950;
+}
+
+.training-decision-band {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.96), rgba(0, 92, 168, 0.84)),
+    url("icons_image/icon_formation/form9.png") center / cover;
+}
+
+.training-decision-layout h2,
+.training-decision-layout p {
+  color: var(--white);
+}
+
+.training-day-plan {
+  display: grid;
+  gap: 10px;
+}
+
+.training-day-plan span {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  color: var(--navy);
+  background: var(--white);
+  font-weight: 950;
+}
+
+.training-day-plan strong {
+  color: var(--teal);
+}
+
+.training-special-grid article {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: 0 10px 28px rgba(4, 42, 82, 0.06);
+}
+
+.training-special-grid img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.training-special-grid div {
+  padding: 22px;
+}
+
+.training-cta {
+  background:
+    linear-gradient(90deg, rgba(6, 45, 91, 0.94), rgba(0, 156, 149, 0.72)),
+    url("icons_image/icon_formation/form15.png") center / cover no-repeat;
+}
+
 .audience-strip {
   padding: 34px 24px;
   color: var(--white);
@@ -2812,6 +3051,24 @@ input:focus-visible {
     grid-template-columns: 1fr 1fr;
   }
 
+  .training-split,
+  .training-split.image-left,
+  .training-workflow-layout,
+  .training-decision-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .training-card-grid,
+  .training-card-grid--four,
+  .training-academy-grid,
+  .training-project-grid,
+  .training-catalog-grid,
+  .training-special-grid,
+  .training-levels,
+  .training-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .quote-layout {
     grid-template-columns: 1fr;
   }
@@ -3083,6 +3340,18 @@ input:focus-visible {
   .geomodel-data-link,
   .geomodel-risk-layout,
   .geomodel-stage__media,
+  .training-split,
+  .training-split.image-left,
+  .training-workflow-layout,
+  .training-decision-layout,
+  .training-card-grid,
+  .training-card-grid--four,
+  .training-academy-grid,
+  .training-project-grid,
+  .training-catalog-grid,
+  .training-special-grid,
+  .training-levels,
+  .training-flow,
   .data-two-column {
     grid-template-columns: 1fr;
   }
@@ -3092,6 +3361,12 @@ input:focus-visible {
   }
 
   .geomodel-image-panel figcaption {
+    position: static;
+    max-width: none;
+    background: var(--navy);
+  }
+
+  .training-image figcaption {
     position: static;
     max-width: none;
     background: var(--navy);
