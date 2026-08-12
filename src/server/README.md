@@ -109,6 +109,8 @@ MAIL_TO=contact_devis@spatialxquare.com
 SpatialXquare <noreply@spatialxquare.com>
 ```
 
+Dans ce projet, `MAIL_FROM` et `MAIL_TO` sont versionnés dans `wrangler.jsonc` parce que ce ne sont pas des secrets. La clé `RESEND_API_KEY` ne doit jamais être écrite dans le dépôt : elle doit rester un secret Cloudflare dans l'environnement de production.
+
 Sans `RESEND_API_KEY` et `MAIL_FROM`, l'API peut recevoir et enregistrer la demande, mais elle ne peut pas envoyer d'e-mail automatiquement.
 
 ## Récupération des demandes

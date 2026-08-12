@@ -6,6 +6,10 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS"
+  },
+  "vars": {
+    "MAIL_FROM": "SpatialXquare Website <noreply@spatialxquare.com>",
+    "MAIL_TO": "contact_devis@spatialxquare.com"
   }
   /*
   ,
