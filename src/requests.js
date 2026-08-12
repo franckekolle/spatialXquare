@@ -94,6 +94,21 @@ function emailSubject(payload, requestId) {
 }
 
 function emailText(payload, ids) {
+  if (clean(payload.request_type) === "contact") {
+    return [
+      "Nouveau message depuis le site SpatialXquare",
+      "",
+      clean(payload.need),
+      "",
+      "Contact",
+      `Email: ${clean(payload.email)}`,
+      `WhatsApp: ${clean(payload.phone)}`,
+      "",
+      `Référence: ${ids.request_id}`,
+      `Page: ${clean(payload.source_page) || clean(payload.page_url)}`
+    ].join("\n");
+  }
+
   return [
     `Identifiant: ${ids.request_id}`,
     `Type de demande: ${clean(payload.request_type) || "quote"}`,
@@ -111,10 +126,7 @@ function emailText(payload, ids) {
     "Projet / message",
     `Projet: ${clean(payload.project_name)}`,
     `Localisation: ${clean(payload.location)}`,
-    `Besoin / message: ${clean(payload.need)}`,
-    "",
-    "Données complètes JSON",
-    JSON.stringify(payload, null, 2)
+    `Besoin / message: ${clean(payload.need)}`
   ].join("\n");
 }
 
