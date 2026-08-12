@@ -10,21 +10,18 @@
   "vars": {
     "MAIL_FROM": "SpatialXquare Website <noreply@spatialxquare.com>",
     "MAIL_TO": "contact_devis@spatialxquare.com"
-  }
-  /*
-  ,
+  },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "spatialxquare-db",
-      "database_id": "REMPLACER_PAR_DATABASE_ID"
+      "database_id": "69fe99e6-3f47-47eb-8599-85d2d09f80db"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "SESSIONS",
-      "id": "REMPLACER_PAR_KV_NAMESPACE_ID"
+      "id": "d180890494024693961ed7b2b701364a"
     }
   ]
-  */
 }
