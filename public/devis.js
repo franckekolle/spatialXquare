@@ -4,6 +4,90 @@ const detailedFields = document.querySelector("[data-detailed-fields]");
 const serviceSelect = document.querySelector("[data-service-select]");
 const servicePanels = document.querySelectorAll("[data-service-panel]");
 const feedback = document.querySelector("[data-quote-feedback]");
+const requestTypeInput = document.querySelector("[data-request-type]");
+const offerInput = document.querySelector("[data-offer-input]");
+const sourcePageInput = document.querySelector("[data-source-page-input]");
+const quoteContext = document.querySelector("[data-quote-context]");
+const quoteMode = document.querySelector(".quote-mode");
+const projectLegend = document.querySelector("[data-project-legend]");
+const needLabel = document.querySelector("[data-need-label]");
+const heroTitle = document.querySelector(".quote-hero h1");
+const heroText = document.querySelector(".quote-hero p:last-child");
+const panelTitle = document.querySelector(".quote-panel strong");
+const panelText = document.querySelector(".quote-panel p");
+
+const serviceLabels = {
+  contact: "Contact général",
+  geophysique: "Géophysique appliquée",
+  exploration: "Exploration minière",
+  eau: "Recherche d’eau souterraine",
+  sig: "Cartographie / SIG",
+  formation: "Formation / renforcement des capacités",
+  geomodelisation: "Géomodélisation 3D",
+  geologie: "Géologie / études minières",
+  forage: "Gestion de campagne de forage",
+  data: "Data Science / IA",
+  energie: "Énergies renouvelables",
+  autre: "Autre"
+};
+
+const params = new URLSearchParams(window.location.search);
+
+function getParam(...names) {
+  for (const name of names) {
+    const value = params.get(name);
+    if (value) return value.trim();
+  }
+  return "";
+}
+
+function field(name) {
+  return form.querySelector(`[name="${name}"]`);
+}
+
+function quoteField(name) {
+  return form.querySelector(`[data-quote-field="${name}"]`);
+}
+
+function setFieldVisible(name, isVisible) {
+  const wrapper = quoteField(name);
+  if (wrapper) wrapper.hidden = !isVisible;
+}
+
+function setRequired(name, isRequired) {
+  const element = field(name);
+  if (element) element.required = isRequired;
+}
+
+function serviceLabel(value) {
+  return serviceLabels[value] || value || "Demande générale";
+}
+
+function inferOfferFromSource(sourcePage) {
+  const source = String(sourcePage || "").toLowerCase();
+  const offers = [
+    ["/geovia-surpac/", "GEOVIA Surpac"],
+    ["/leapfrog-geo/", "Leapfrog Geo"],
+    ["/maptek-vulcan/", "Maptek Vulcan"],
+    ["/datamine-studio-rm/", "Datamine Studio RM"],
+    ["/micromine-origin-beyond/", "Micromine Origin & Beyond"],
+    ["/geostatistique-data-science/", "Géostatistique & Data Science"],
+    ["/planification-optimisation-miniere/", "Planification & Optimisation Minière"],
+    ["/gis-geospatial-academy/", "GIS & Geospatial Academy"],
+    ["/engineering-cad-academy/", "Engineering & CAD Academy"],
+    ["/bootcamps-donnees-geosciences/", "Bootcamps Données & IA"],
+    ["/parcours-geologue-ressources/", "Parcours Géologue ressources"],
+    ["/iogas-geochemical-bootcamps/", "Bootcamps ioGAS"],
+    ["/manager-technique-decision/", "Manager technique & décision"],
+    ["/formations-operationnelles/", "Formations opérationnelles"],
+    ["/modelisation-geologique-3d/", "Modélisation géologique 3D"],
+    ["/geophysique-exploration-miniere/", "Géophysique, exploration et cartographie"],
+    ["/energies-renouvelables-eau/", "Énergies renouvelables & eau"],
+    ["/data-science-solutions-logicielles/", "Data Science & solutions logicielles"]
+  ];
+
+  return offers.find(([path]) => source.includes(path))?.[1] || "";
+}
 
 function setMode(mode) {
   const isDetailed = mode === "detailed";
@@ -40,7 +124,10 @@ function buildRequestId() {
 function buildMessage(formData, requestId) {
   const lines = [
     `Identifiant: ${requestId}`,
+    `Type de demande: ${formData.get("request_type") || "quote"}`,
     `Service: ${formData.get("service") || ""}`,
+    `Offre / contexte: ${formData.get("offer") || ""}`,
+    `Page d'origine: ${formData.get("source_page") || ""}`,
     `Projet: ${formData.get("project_name") || ""}`,
     `Besoin: ${formData.get("need") || ""}`,
     `Localisation: ${formData.get("location") || ""}`,
@@ -87,7 +174,11 @@ function buildMessage(formData, requestId) {
 
 function payloadFromForm(formData) {
   return {
+    request_type: formData.get("request_type") || "quote",
     service: formData.get("service") || "",
+    offer: formData.get("offer") || "",
+    source_page: formData.get("source_page") || "",
+    page_url: window.location.href,
     project_name: formData.get("project_name") || "",
     location: formData.get("location") || "",
     need: formData.get("need") || "",
@@ -134,10 +225,85 @@ function payloadFromForm(formData) {
 }
 
 function openMailFallback(formData, requestId) {
-  const subject = encodeURIComponent(`Demande de devis ${requestId} - ${formData.get("project_name") || "Projet"}`);
+  const requestType = formData.get("request_type") === "contact" ? "Contact" : "Demande de devis";
+  const subject = encodeURIComponent(`${requestType} ${requestId} - ${formData.get("offer") || formData.get("project_name") || serviceLabel(formData.get("service"))}`);
   const body = encodeURIComponent(buildMessage(formData, requestId));
 
   window.location.href = `mailto:contact_devis@spatialxquare.com?subject=${subject}&body=${body}`;
+}
+
+function setContextBanner(service, offer, sourcePage, requestType) {
+  if (!quoteContext) return;
+
+  const contextLines = [];
+  if (requestType === "contact") contextLines.push("Contact simple");
+  if (service) contextLines.push(serviceLabel(service));
+  if (offer) contextLines.push(offer);
+
+  if (!contextLines.length) {
+    quoteContext.hidden = true;
+    quoteContext.innerHTML = "";
+    return;
+  }
+
+  quoteContext.hidden = false;
+  quoteContext.innerHTML = `
+    <strong>${contextLines.join(" · ")}</strong>
+    ${sourcePage ? `<span>Origine : ${sourcePage}</span>` : ""}
+  `;
+}
+
+function applyRequestContext() {
+  const requestType = getParam("type", "request_type", "mode") === "contact" ? "contact" : "quote";
+  const requestedService = getParam("service") || (requestType === "contact" ? "contact" : "");
+  const sourcePage = getParam("source", "from") || document.referrer || "";
+  const offer = getParam("offer", "offre", "formation", "module", "parcours") || inferOfferFromSource(sourcePage);
+  const isContact = requestType === "contact";
+
+  requestTypeInput.value = requestType;
+  offerInput.value = offer;
+  sourcePageInput.value = sourcePage;
+
+  if (requestedService) serviceSelect.value = requestedService;
+
+  setFieldVisible("service", !isContact);
+  setFieldVisible("project_name", !isContact);
+  setFieldVisible("location", !isContact);
+  setFieldVisible("organization", !isContact);
+  setFieldVisible("contact_name", !isContact);
+
+  setRequired("service", !isContact);
+  setRequired("project_name", !isContact);
+  setRequired("location", !isContact);
+  setRequired("contact_name", !isContact);
+  setRequired("phone", isContact);
+
+  if (isContact) {
+    serviceSelect.value = "contact";
+    field("project_name").value = "Contact général";
+    field("location").value = "";
+    field("contact_name").value = "Contact site web";
+    quoteMode.hidden = true;
+    detailedFields.hidden = true;
+    projectLegend.textContent = "Votre message";
+    needLabel.textContent = "Message à envoyer";
+    heroTitle.textContent = "Contactez SpatialXquare.";
+    heroText.textContent = "Laissez votre e-mail, votre numéro WhatsApp et votre message. Nous recevrons votre demande à l’adresse contact_devis@spatialxquare.com.";
+    panelTitle.textContent = "Contact simple";
+    panelText.textContent = "Ce formulaire est volontairement court pour les demandes générales.";
+  } else {
+    quoteMode.hidden = false;
+    projectLegend.textContent = "Votre projet";
+    needLabel.textContent = "Quel est votre besoin ?";
+    heroTitle.textContent = "Parlez-nous de votre projet.";
+    heroText.textContent = "Quelques informations nous permettront de comprendre votre besoin et de vous proposer une solution technique et financière adaptée.";
+    panelTitle.textContent = "Votre demande";
+    panelText.textContent = "Un identifiant sera généré à l’envoi pour faciliter le suivi interne de votre projet.";
+    setMode(requestedService ? "detailed" : "quick");
+  }
+
+  setContextBanner(serviceSelect.value, offer, sourcePage, requestType);
+  updateServicePanel();
 }
 
 modeButtons.forEach((button) => {
@@ -169,24 +335,15 @@ form.addEventListener("submit", async (event) => {
       throw new Error(result.errors?.join(" ") || "La demande n’a pas pu être enregistrée.");
     }
 
-    feedback.textContent = `Merci. Votre demande ${result.request_id} a bien été transmise.`;
+    feedback.textContent = result.emailed
+      ? `Merci. Votre demande ${result.request_id} a bien été transmise par e-mail.`
+      : `Merci. Votre demande ${result.request_id} a bien été reçue. L’envoi e-mail serveur doit encore être configuré dans Cloudflare.`;
     form.reset();
-    setMode("quick");
-    updateServicePanel();
+    applyRequestContext();
   } catch (error) {
     feedback.textContent = `L’API n’est pas disponible. Ouverture de l’e-mail de secours ${requestId}.`;
     openMailFallback(formData, requestId);
   }
 });
 
-const params = new URLSearchParams(window.location.search);
-const requestedService = params.get("service");
-
-if (requestedService) {
-  serviceSelect.value = requestedService;
-  setMode("detailed");
-} else {
-  setMode("quick");
-}
-
-updateServicePanel();
+applyRequestContext();

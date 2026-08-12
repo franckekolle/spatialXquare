@@ -61,16 +61,22 @@
           </aside>
 
           <form class="quote-form" data-quote-form>
+            <input name="request_type" type="hidden" value="quote" data-request-type>
+            <input name="offer" type="hidden" value="" data-offer-input>
+            <input name="source_page" type="hidden" value="" data-source-page-input>
+            <div class="quote-context" data-quote-context hidden></div>
+
             <div class="quote-mode" role="group" aria-label="Niveau de demande">
               <button class="is-active" type="button" data-quote-mode="quick">Demande rapide</button>
               <button type="button" data-quote-mode="detailed">Étude détaillée</button>
             </div>
 
-            <fieldset>
-              <legend>Votre projet</legend>
-              <label>Type de prestation
+            <fieldset data-project-fieldset>
+              <legend data-project-legend>Votre projet</legend>
+              <label data-quote-field="service">Type de prestation
                 <select name="service" data-service-select required>
                   <option value="">Sélectionner une prestation</option>
+                  <option value="contact">Contact général</option>
                   <option value="geophysique">Géophysique appliquée</option>
                   <option value="exploration">Exploration minière</option>
                   <option value="eau">Recherche d’eau souterraine</option>
@@ -84,9 +90,9 @@
                   <option value="autre">Autre</option>
                 </select>
               </label>
-              <label>Nom du projet <input name="project_name" type="text" required></label>
-              <label>Localisation du projet <input name="location" type="text" placeholder="Région, ville, coordonnées GPS si disponibles" required></label>
-              <label>Quel est votre besoin ?
+              <label data-quote-field="project_name">Nom du projet <input name="project_name" type="text" required></label>
+              <label data-quote-field="location">Localisation du projet <input name="location" type="text" placeholder="Région, ville, coordonnées GPS si disponibles" required></label>
+              <label><span data-need-label>Quel est votre besoin ?</span>
                 <textarea name="need" rows="4" required></textarea>
               </label>
             </fieldset>
@@ -256,8 +262,8 @@
             <fieldset>
               <legend>Coordonnées</legend>
               <div class="form-grid">
-                <label>Entreprise / organisme <input name="organization" type="text"></label>
-                <label>Nom du responsable <input name="contact_name" type="text" required></label>
+                <label data-quote-field="organization">Entreprise / organisme <input name="organization" type="text"></label>
+                <label data-quote-field="contact_name">Nom du responsable <input name="contact_name" type="text" required></label>
                 <label>E-mail <input name="email" type="email" required></label>
                 <label>Téléphone / WhatsApp <input name="phone" type="tel"></label>
               </div>

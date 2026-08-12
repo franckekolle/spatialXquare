@@ -14,12 +14,19 @@ function cleanString(value) {
 
 function validatePayload(payload) {
   const errors = [];
+  const requestType = cleanString(payload.request_type) || "quote";
+
+  if (!cleanString(payload.need)) errors.push("La description du besoin est obligatoire.");
+  if (!cleanString(payload.email)) errors.push("L'adresse e-mail est obligatoire.");
+
+  if (requestType === "contact") {
+    if (!cleanString(payload.phone)) errors.push("Le numéro WhatsApp est obligatoire.");
+    return errors;
+  }
 
   if (!cleanString(payload.service)) errors.push("Le type de prestation est obligatoire.");
   if (!cleanString(payload.project_name)) errors.push("Le nom du projet est obligatoire.");
-  if (!cleanString(payload.need)) errors.push("La description du besoin est obligatoire.");
   if (!cleanString(payload.contact_name)) errors.push("Le nom du responsable est obligatoire.");
-  if (!cleanString(payload.email)) errors.push("L'adresse e-mail est obligatoire.");
 
   return errors;
 }
@@ -27,9 +34,14 @@ function validatePayload(payload) {
 async function saveWithD1(db, payload, ids) {
   const now = new Date().toISOString();
   const organization = cleanString(payload.organization);
-  const contactName = cleanString(payload.contact_name);
+  const contactName = cleanString(payload.contact_name) || "Contact site web";
   const email = cleanString(payload.email);
   const phone = cleanString(payload.phone);
+  const requestType = cleanString(payload.request_type) || "quote";
+  const serviceType = requestType === "contact" ? "contact" : cleanString(payload.service);
+  const projectName = requestType === "contact"
+    ? `Contact - ${email}`
+    : cleanString(payload.project_name);
 
   await db.batch([
     db.prepare(`
@@ -52,8 +64,8 @@ async function saveWithD1(db, payload, ids) {
       ids.client_id,
       ids.contact_id,
       "NOUVELLE_DEMANDE",
-      cleanString(payload.service),
-      cleanString(payload.project_name),
+      serviceType,
+      projectName,
       cleanString(payload.need),
       cleanString(payload.location),
       cleanString(payload.country),
@@ -75,6 +87,68 @@ async function saveWithD1(db, payload, ids) {
       now
     )
   ]);
+}
+
+function emailSubject(payload, requestId) {
+  const requestType = cleanString(payload.request_type) === "contact" ? "Contact" : "Demande de devis";
+  const context = cleanString(payload.offer) || cleanString(payload.project_name) || cleanString(payload.service) || "SpatialXquare";
+  return `${requestType} ${requestId} - ${context}`;
+}
+
+function emailText(payload, ids) {
+  return [
+    `Identifiant: ${ids.request_id}`,
+    `Type de demande: ${cleanString(payload.request_type) || "quote"}`,
+    `Service: ${cleanString(payload.service)}`,
+    `Offre / contexte: ${cleanString(payload.offer)}`,
+    `Page d'origine: ${cleanString(payload.source_page)}`,
+    `URL formulaire: ${cleanString(payload.page_url)}`,
+    "",
+    "Coordonnées",
+    `Organisation: ${cleanString(payload.organization)}`,
+    `Responsable: ${cleanString(payload.contact_name) || "Contact site web"}`,
+    `Email: ${cleanString(payload.email)}`,
+    `Téléphone / WhatsApp: ${cleanString(payload.phone)}`,
+    "",
+    "Projet / message",
+    `Projet: ${cleanString(payload.project_name)}`,
+    `Localisation: ${cleanString(payload.location)}`,
+    `Besoin / message: ${cleanString(payload.need)}`,
+    "",
+    "Données complètes JSON",
+    JSON.stringify(payload, null, 2)
+  ].join("\n");
+}
+
+async function notifyByEmail(env, payload, ids) {
+  const to = env.MAIL_TO || "contact_devis@spatialxquare.com";
+  const from = env.MAIL_FROM;
+  const apiKey = env.RESEND_API_KEY;
+
+  if (!apiKey || !from) {
+    return { sent: false, reason: "RESEND_API_KEY ou MAIL_FROM manquant." };
+  }
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      reply_to: cleanString(payload.email),
+      subject: emailSubject(payload, ids.request_id),
+      text: emailText(payload, ids)
+    })
+  });
+
+  if (!response.ok) {
+    return { sent: false, reason: await response.text() };
+  }
+
+  return { sent: true };
 }
 
 export async function onRequestPost(context) {
@@ -112,9 +186,18 @@ export async function onRequestPost(context) {
     persisted = true;
   }
 
+  let email = { sent: false };
+  try {
+    email = await notifyByEmail(context.env, payload, ids);
+  } catch (error) {
+    email = { sent: false, reason: error.message };
+  }
+
   return Response.json({
     ok: true,
     persisted,
+    emailed: email.sent,
+    email_reason: email.sent ? undefined : email.reason,
     ...ids,
     status: "NOUVELLE_DEMANDE",
     message: persisted

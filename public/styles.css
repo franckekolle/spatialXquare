@@ -3941,6 +3941,25 @@ input:focus-visible {
   gap: 10px;
 }
 
+.quote-context {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--teal);
+  background: #eef8f7;
+  color: var(--navy);
+}
+
+.quote-context strong {
+  font-weight: 950;
+}
+
+.quote-context span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
 .quote-mode button {
   min-height: 44px;
   padding: 10px 16px;

@@ -261,7 +261,7 @@ function ProjectCallToAction() {
         <p>${cta.text}</p>
         <div>
           <a class="button button-primary" href="/demande-devis.html?service=geophysique">${cta.buttons[0]}</a>
-          <a class="button button-primary" href="/demande-devis.html?service=geophysique">${cta.buttons[1]}</a>
+          <a class="button button-primary" href="/demande-devis.html?type=contact&source=geophysique">${cta.buttons[1]}</a>
         </div>
       </div>
     </section>
