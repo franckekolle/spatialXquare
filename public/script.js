@@ -66,7 +66,7 @@ const expertiseData = [
     icon: icons.drill,
     description: "Applications métier, outils SIG, automatisation et solutions numériques pour les projets techniques.",
     accentClass: "accent-orange",
-    link: "/expertises/data-science-solutions-logicielles/"
+    link: "/expertises/formations-operationnelles/gis-geospatial-academy/"
   },
   {
     title: "Énergies renouvelables et eau",
