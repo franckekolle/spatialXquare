@@ -156,6 +156,16 @@ function FloatingContact() {
 
   contact.addEventListener("click", () => setOpen(panel.hidden));
   close.addEventListener("click", () => setOpen(false));
+  document.addEventListener("pointerdown", (event) => {
+    if (!panel.hidden && !wrapper.contains(event.target)) {
+      setOpen(false);
+    }
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !panel.hidden) {
+      setOpen(false);
+    }
+  });
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     submitFloatingContact(form, feedback);

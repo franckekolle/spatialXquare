@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demandes reçues | SpatialXquare</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#062d5b">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body class="admin-page">
+    <main class="admin-shell">
+      <section class="admin-login" data-admin-login>
+        <div>
+          <p class="section-kicker">Administration</p>
+          <h1>Demandes SpatialXquare</h1>
+          <p data-admin-intro>Connectez-vous pour consulter les formulaires reçus depuis le site.</p>
+        </div>
+        <div class="admin-auth-switch" role="group" aria-label="Mode d'accès admin">
+          <button class="is-active" type="button" data-auth-mode="login">Connexion</button>
+          <button type="button" data-auth-mode="signup">Créer le compte admin</button>
+        </div>
+        <form class="admin-form" data-auth-form>
+          <label data-signup-only hidden>Nom
+            <input name="name" type="text" autocomplete="name">
+          </label>
+          <label>E-mail
+            <input name="email" type="email" autocomplete="email" required>
+          </label>
+          <label>Mot de passe
+            <input name="password" type="password" autocomplete="current-password" required>
+          </label>
+          <button class="button button-primary" type="submit" data-auth-submit>Se connecter</button>
+          <p data-login-feedback aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="admin-dashboard" data-admin-dashboard hidden>
+        <header class="admin-header">
+          <div>
+            <p class="section-kicker">Tableau de bord</p>
+            <h1>Formulaires reçus</h1>
+            <p data-admin-user></p>
+          </div>
+          <button class="button button-secondary" type="button" data-logout>Déconnexion</button>
+        </header>
+
+        <div class="admin-stats" data-admin-stats></div>
+        <div class="admin-list" data-admin-list></div>
+      </section>
+    </main>
+
+    <script src="/admin/admin.js" defer></script>
+  </body>
+</html>

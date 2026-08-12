@@ -86,6 +86,14 @@ export async function handleSignup(request, env) {
     return json({ ok: false, error: "Email et mot de passe requis." }, { status: 400 });
   }
 
+  const userCount = await env.DB.prepare("SELECT COUNT(*) AS total FROM users").first();
+  if ((userCount?.total || 0) > 0) {
+    return json({
+      ok: false,
+      error: "Un compte administrateur existe déjà. Utilisez la connexion."
+    }, { status: 403 });
+  }
+
   const id = crypto.randomUUID();
   const passwordHash = await hashPassword(password);
 

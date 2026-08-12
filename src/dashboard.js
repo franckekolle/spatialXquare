@@ -26,9 +26,24 @@ export async function handleDashboard(request, env) {
   `).all();
 
   const recentProjects = await env.DB.prepare(`
-    SELECT id, request_id, project_name, service_type, status, location, created_at
+    SELECT
+      projects.id,
+      projects.request_id,
+      projects.project_name,
+      projects.service_type,
+      projects.status,
+      projects.need,
+      projects.location,
+      projects.custom_data,
+      projects.created_at,
+      contacts.name AS contact_name,
+      contacts.email AS contact_email,
+      contacts.phone AS contact_phone,
+      clients.organization_name
     FROM projects
-    ORDER BY created_at DESC
+    JOIN contacts ON contacts.id = projects.contact_id
+    JOIN clients ON clients.id = projects.client_id
+    ORDER BY projects.created_at DESC
     LIMIT 20
   `).all();
 
