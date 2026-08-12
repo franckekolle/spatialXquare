@@ -66,7 +66,7 @@ const expertiseData = [
     icon: icons.drill,
     description: "Applications métier, outils SIG, automatisation et solutions numériques pour les projets techniques.",
     accentClass: "accent-orange",
-    link: "#solutions-sig"
+    link: "/expertises/data-science-solutions-logicielles/"
   },
   {
     title: "Énergies renouvelables et eau",
@@ -361,22 +361,6 @@ function ProjectsSection() {
   `;
 }
 
-function PartnersSection() {
-  const partners = ["Institutions", "Mines", "Energie", "Recherche"];
-  return `
-    <section class="section partners" id="partenaires">
-      <div class="container">
-        <p class="section-kicker">Partenaires</p>
-        <h2>Collaborer avec les acteurs publics, industriels et scientifiques.</h2>
-        <p>Cette zone accueillera vos logos partenaires lorsque les autorisations de publication seront confirmees.</p>
-        <div class="partner-grid">
-          ${partners.map((partner) => `<div class="partner-card">${partner}</div>`).join("")}
-        </div>
-      </div>
-    </section>
-  `;
-}
-
 function Footer() {
   return `
     <footer class="site-footer">
@@ -416,7 +400,6 @@ function MobileMenu() {
         <a href="#actualites">Actualites</a>
         <a href="#presentation">Presentation</a>
         <a href="#projets">Projets et realisations</a>
-        <a href="#partenaires">Partenaires</a>
       </nav>
     </aside>
   `;
@@ -444,7 +427,6 @@ function render() {
   document.querySelector("#news-section").innerHTML = NewsSection();
   document.querySelector("#about-section").innerHTML = AboutSection();
   document.querySelector("#projects-section").innerHTML = ProjectsSection();
-  document.querySelector("#partners-section").innerHTML = PartnersSection();
   document.querySelector("#site-footer").innerHTML = Footer();
   document.querySelector("#mobile-menu-root").innerHTML = MobileMenu();
   document.querySelector("#search-overlay-root").innerHTML = SearchOverlay();

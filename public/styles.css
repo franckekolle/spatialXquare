@@ -704,7 +704,27 @@ input:focus-visible {
 }
 
 .about {
-  background: var(--light);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, rgba(247, 250, 252, 0.94), rgba(247, 250, 252, 0.82)),
+    url("icons_image/fond_part1.png") center / cover no-repeat;
+}
+
+.about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.18)),
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.72), transparent 42%);
+}
+
+.about .split {
+  position: relative;
+  z-index: 1;
 }
 
 .split {
@@ -750,7 +770,8 @@ input:focus-visible {
 .metric {
   padding: 18px;
   border-left: 4px solid var(--teal);
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
 }
 
 .metric strong {
