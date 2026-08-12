@@ -4050,6 +4050,52 @@ input:focus-visible {
   font-weight: 850;
 }
 
+.floating-contact {
+  position: fixed;
+  right: clamp(14px, 2.2vw, 28px);
+  bottom: clamp(14px, 2.2vw, 28px);
+  z-index: 200;
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+}
+
+.floating-contact__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 12px 16px;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  box-shadow: 0 14px 30px rgba(4, 42, 82, 0.22);
+  font-weight: 950;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-contact__button:hover,
+.floating-contact__button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(4, 42, 82, 0.28);
+}
+
+.floating-contact__button svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+.floating-contact__button--whatsapp {
+  background: #1fa855;
+}
+
+.floating-contact__button--contact {
+  background: var(--navy);
+}
+
 .expertise-cta {
   position: relative;
   padding: 84px 24px;
