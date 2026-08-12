@@ -12,6 +12,23 @@ const listRoot = document.querySelector("[data-admin-list]");
 const logoutButton = document.querySelector("[data-logout]");
 let authMode = "login";
 
+async function fetchJson(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+    const text = await response.text();
+    const result = text ? JSON.parse(text) : {};
+    return { response, result };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 function showDashboard(isVisible) {
   loginSection.hidden = isVisible;
   dashboardSection.hidden = !isVisible;
@@ -83,8 +100,16 @@ function renderProjects(projects) {
 }
 
 async function loadDashboard() {
-  const response = await fetch("/api/dashboard");
-  const result = await response.json();
+  let response;
+  let result;
+
+  try {
+    ({ response, result } = await fetchJson("/api/dashboard"));
+  } catch (error) {
+    showDashboard(false);
+    loginFeedback.textContent = "Impossible de joindre le tableau de bord pour le moment.";
+    return;
+  }
 
   if (!response.ok || !result.ok) {
     showDashboard(false);
@@ -105,20 +130,31 @@ authButtons.forEach((button) => {
 authForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   loginFeedback.textContent = authMode === "signup" ? "Création du compte..." : "Connexion...";
+  authSubmit.disabled = true;
 
   const formData = new FormData(authForm);
-  const response = await fetch(authMode === "signup" ? "/api/auth/signup" : "/api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      email: formData.get("email"),
-      password: formData.get("password"),
-      name: formData.get("name")
-    })
-  });
-  const result = await response.json();
+  let response;
+  let result;
+
+  try {
+    ({ response, result } = await fetchJson(authMode === "signup" ? "/api/auth/signup" : "/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: formData.get("email"),
+        password: formData.get("password"),
+        name: formData.get("name")
+      })
+    }));
+  } catch (error) {
+    loginFeedback.textContent = "Le serveur ne répond pas. Vérifiez que DB, SESSIONS et les migrations D1 sont bien déployés.";
+    authSubmit.disabled = false;
+    return;
+  }
+
+  authSubmit.disabled = false;
 
   if (!response.ok || !result.ok) {
     loginFeedback.textContent = result.error || "Action impossible.";
