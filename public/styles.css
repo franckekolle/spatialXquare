@@ -4060,6 +4060,101 @@ input:focus-visible {
   justify-items: end;
 }
 
+.floating-contact-panel {
+  width: min(360px, calc(100vw - 28px));
+  padding: 18px;
+  border: 1px solid rgba(6, 45, 91, 0.12);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 20px 48px rgba(4, 42, 82, 0.24);
+}
+
+.floating-contact-panel[hidden] {
+  display: none;
+}
+
+.floating-contact-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.floating-contact-panel__header strong,
+.floating-contact-panel__header span {
+  display: block;
+}
+
+.floating-contact-panel__header strong {
+  color: var(--navy);
+  font-size: 1.02rem;
+}
+
+.floating-contact-panel__header span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.floating-contact-panel__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: var(--navy);
+  border: 1px solid var(--line);
+  background: var(--white);
+  cursor: pointer;
+}
+
+.floating-contact-panel__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.floating-contact-form {
+  display: grid;
+  gap: 12px;
+}
+
+.floating-contact-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--navy);
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.floating-contact-form input,
+.floating-contact-form textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 11px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--white);
+  font: inherit;
+}
+
+.floating-contact-form textarea {
+  resize: vertical;
+}
+
+.floating-contact-form .button {
+  width: 100%;
+  min-height: 44px;
+}
+
+.floating-contact-form p {
+  min-height: 18px;
+  margin: 0;
+  color: var(--teal);
+  font-size: 0.88rem;
+  font-weight: 850;
+}
+
 .floating-contact__button {
   display: inline-flex;
   align-items: center;
@@ -4506,6 +4601,21 @@ input:focus-visible {
 @media (max-width: 680px) {
   :root {
     --header-height: 62px;
+  }
+
+  .floating-contact {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .floating-contact-panel {
+    width: calc(100vw - 24px);
+    max-height: calc(100vh - 120px);
+    overflow: auto;
+  }
+
+  .floating-contact__button span {
+    font-size: 0.92rem;
   }
 
   .container {
