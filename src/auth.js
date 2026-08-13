@@ -1,4 +1,5 @@
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7;
+const PASSWORD_ITERATIONS = 30000;
 
 function json(data, init = {}) {
   return Response.json(data, {
@@ -49,17 +50,22 @@ function fromB64(value) {
 export async function hashPassword(password) {
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
-  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: 120000, hash: "SHA-256" }, key, 256);
-  return `${b64(salt)}:${b64(new Uint8Array(bits))}`;
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: PASSWORD_ITERATIONS, hash: "SHA-256" }, key, 256);
+  return `${PASSWORD_ITERATIONS}:${b64(salt)}:${b64(new Uint8Array(bits))}`;
 }
 
 export async function verifyPassword(password, stored) {
-  const [saltB64, hashB64] = String(stored || "").split(":");
+  const parts = String(stored || "").split(":");
+  const hasIterationPrefix = parts.length === 3;
+  const iterations = hasIterationPrefix ? Number(parts[0]) : 120000;
+  const saltB64 = hasIterationPrefix ? parts[1] : parts[0];
+  const hashB64 = hasIterationPrefix ? parts[2] : parts[1];
+
   if (!saltB64 || !hashB64) return false;
 
   const salt = fromB64(saltB64);
   const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
-  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: 120000, hash: "SHA-256" }, key, 256);
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations, hash: "SHA-256" }, key, 256);
   return b64(new Uint8Array(bits)) === hashB64;
 }
 
@@ -72,7 +78,7 @@ export async function currentUser(request, env) {
   const session = await env.SESSIONS.get(sessionId, "json");
   if (!session?.userId) return null;
 
-  return env.DB.prepare("SELECT id, email, name, created_at FROM users WHERE id = ?")
+  return env.DB.prepare("SELECT id, email, name, role, active, created_at FROM users WHERE id = ? AND active = 1")
     .bind(session.userId)
     .first();
 }
@@ -81,31 +87,42 @@ export async function handleSignup(request, env) {
   const bindingError = requireBindings(env);
   if (bindingError) return bindingError;
 
-  const { email, password, name } = await request.json();
+  const { email, password, name, signup_code: signupCode } = await request.json();
   if (!email || !password) {
     return json({ ok: false, error: "Email et mot de passe requis." }, { status: 400 });
   }
 
   const userCount = await env.DB.prepare("SELECT COUNT(*) AS total FROM users").first();
-  if ((userCount?.total || 0) > 0) {
-    return json({
-      ok: false,
-      error: "Un compte administrateur existe déjà. Utilisez la connexion."
-    }, { status: 403 });
+  const hasUsers = (userCount?.total || 0) > 0;
+  if (hasUsers) {
+    if (!env.ADMIN_SIGNUP_CODE) {
+      return json({
+        ok: false,
+        error: "La création de comptes supplémentaires nécessite le secret ADMIN_SIGNUP_CODE."
+      }, { status: 403 });
+    }
+
+    if (String(signupCode || "") !== env.ADMIN_SIGNUP_CODE) {
+      return json({
+        ok: false,
+        error: "Code d’inscription administrateur invalide."
+      }, { status: 403 });
+    }
   }
 
   const id = crypto.randomUUID();
   const passwordHash = await hashPassword(password);
+  const role = hasUsers ? "admin" : "super_admin";
 
   try {
-    await env.DB.prepare("INSERT INTO users (id, email, password_hash, name) VALUES (?, ?, ?, ?)")
-      .bind(id, String(email).toLowerCase().trim(), passwordHash, name || null)
+    await env.DB.prepare("INSERT INTO users (id, email, password_hash, name, role, active) VALUES (?, ?, ?, ?, ?, ?)")
+      .bind(id, String(email).toLowerCase().trim(), passwordHash, name || null, role, 1)
       .run();
   } catch (error) {
     return json({ ok: false, error: "Email déjà utilisé." }, { status: 409 });
   }
 
-  return json({ ok: true, user: { id, email, name: name || null } }, { status: 201 });
+  return json({ ok: true, user: { id, email, name: name || null, role } }, { status: 201 });
 }
 
 export async function handleLogin(request, env) {
@@ -113,7 +130,7 @@ export async function handleLogin(request, env) {
   if (bindingError) return bindingError;
 
   const { email, password } = await request.json();
-  const user = await env.DB.prepare("SELECT * FROM users WHERE email = ?")
+  const user = await env.DB.prepare("SELECT * FROM users WHERE email = ? AND active = 1")
     .bind(String(email || "").toLowerCase().trim())
     .first();
 

@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS users (
   email TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
   name TEXT,
+  role TEXT NOT NULL DEFAULT 'admin',
+  active INTEGER NOT NULL DEFAULT 1,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -102,7 +104,22 @@ CREATE TABLE IF NOT EXISTS quote_items (
   FOREIGN KEY (quote_id) REFERENCES quotes(id)
 );
 
+CREATE TABLE IF NOT EXISTS request_replies (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  message TEXT NOT NULL,
+  recipient_email TEXT NOT NULL,
+  resend_id TEXT,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES projects(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 CREATE INDEX IF NOT EXISTS idx_projects_status ON projects(status);
 CREATE INDEX IF NOT EXISTS idx_projects_service_type ON projects(service_type);
 CREATE INDEX IF NOT EXISTS idx_projects_created_at ON projects(created_at);
 CREATE INDEX IF NOT EXISTS idx_contacts_email ON contacts(email);
+CREATE INDEX IF NOT EXISTS idx_request_replies_project_id ON request_replies(project_id);
+CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);

@@ -52,6 +52,14 @@ project_status_history
 documents
 quotes
 quote_items
+request_replies
+```
+
+La migration `0002_admin_console.sql` ajoute aussi :
+
+```text
+users.role
+users.active
 ```
 
 ## 5. Déployer
@@ -66,23 +74,29 @@ Cloudflare redéploie ensuite le Worker.
 
 ## 6. Créer le compte administrateur
 
-Une fois déployé, créer un compte admin avec une requête POST vers :
+Une fois déployé, ouvrir :
 
 ```text
-https://spatialxquare.com/api/auth/signup
+https://spatialxquare.com/admin/
 ```
 
-Corps JSON :
+Cliquer sur `Créer le compte admin`, puis créer le premier compte.
 
-```json
-{
-  "email": "votre-email-admin",
-  "password": "mot-de-passe-solide",
-  "name": "Admin SpatialXquare"
-}
+## 7. Autoriser plusieurs administrateurs
+
+Le premier compte devient automatiquement `super_admin`.
+
+Depuis l'interface admin, le super admin peut ensuite créer d'autres comptes dans le bloc `Administrateurs`.
+
+L'inscription publique reste possible uniquement si vous ajoutez un secret Cloudflare :
+
+```text
+ADMIN_SIGNUP_CODE
 ```
 
-## 7. Consulter les demandes
+Les nouveaux administrateurs devront saisir ce code dans `/admin/`.
+
+## 8. Consulter, répondre et supprimer les demandes
 
 Ouvrir :
 
@@ -92,7 +106,19 @@ https://spatialxquare.com/admin/
 
 Connectez-vous avec l'e-mail et le mot de passe créés.
 
-## 8. Tester
+Fonctions disponibles :
+
+- recherche dans les demandes ;
+- filtre par statut ;
+- filtre par service ;
+- tri ;
+- pagination ;
+- bouton `Voir` pour ouvrir le détail d'une demande ;
+- réponse directe par e-mail via Resend ;
+- archivage de chaque réponse dans D1 ;
+- suppression définitive d'une demande.
+
+## 9. Tester
 
 Envoyer un message depuis le bouton flottant `Contacter`, puis vérifier :
 

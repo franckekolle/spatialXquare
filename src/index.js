@@ -1,4 +1,5 @@
 import { handleLogin, handleLogout, handleMe, handleSignup } from "./auth.js";
+import { handleCreateAdmin, handleDeleteRequest, handleListAdmins, handleReplyRequest } from "./admin-actions.js";
 import { handleDashboard } from "./dashboard.js";
 import { handleCreateRequest } from "./requests.js";
 
@@ -43,6 +44,22 @@ export default {
 
       if (url.pathname === "/api/dashboard" && request.method === "GET") {
         return handleDashboard(request, env);
+      }
+
+      if (url.pathname === "/api/admin/delete-request" && request.method === "POST") {
+        return handleDeleteRequest(request, env);
+      }
+
+      if (url.pathname === "/api/admin/reply" && request.method === "POST") {
+        return handleReplyRequest(request, env);
+      }
+
+      if (url.pathname === "/api/admin/users" && request.method === "GET") {
+        return handleListAdmins(request, env);
+      }
+
+      if (url.pathname === "/api/admin/users" && request.method === "POST") {
+        return handleCreateAdmin(request, env);
       }
 
       return json({ ok: false, error: "Route API introuvable." }, { status: 404 });

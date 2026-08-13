@@ -25,6 +25,9 @@
           <label data-signup-only hidden>Nom
             <input name="name" type="text" autocomplete="name">
           </label>
+          <label data-signup-only hidden>Code d’inscription admin
+            <input name="signup_code" type="password" autocomplete="off">
+          </label>
           <label>E-mail
             <input name="email" type="email" autocomplete="email" required>
           </label>
@@ -47,7 +50,95 @@
         </header>
 
         <div class="admin-stats" data-admin-stats></div>
+        <div class="admin-controls">
+          <label>Recherche
+            <input type="search" data-admin-search placeholder="Nom, email, message, référence">
+          </label>
+          <label>Statut
+            <select data-admin-status-filter>
+              <option value="">Tous les statuts</option>
+            </select>
+          </label>
+          <label>Service
+            <select data-admin-service-filter>
+              <option value="">Tous les services</option>
+            </select>
+          </label>
+          <label>Trier par
+            <select data-admin-sort>
+              <option value="created_at">Date</option>
+              <option value="request_id">Référence</option>
+              <option value="client">Client</option>
+              <option value="service">Service</option>
+              <option value="status">Statut</option>
+            </select>
+          </label>
+          <label>Ordre
+            <select data-admin-direction>
+              <option value="desc">Récent d'abord</option>
+              <option value="asc">Ancien d'abord</option>
+            </select>
+          </label>
+        </div>
         <div class="admin-list" data-admin-list></div>
+        <div class="admin-pagination" data-admin-pagination></div>
+
+        <section class="admin-users" data-admin-users-section hidden>
+          <header>
+            <div>
+              <p class="section-kicker">Administration</p>
+              <h2>Administrateurs</h2>
+            </div>
+          </header>
+          <form class="admin-user-form" data-admin-user-form>
+            <label>Nom
+              <input name="name" type="text" autocomplete="name">
+            </label>
+            <label>E-mail
+              <input name="email" type="email" autocomplete="email" required>
+            </label>
+            <label>Mot de passe provisoire
+              <input name="password" type="password" autocomplete="new-password" required>
+            </label>
+            <button class="button button-primary" type="submit">Ajouter un admin</button>
+            <p data-admin-user-feedback aria-live="polite"></p>
+          </form>
+          <div data-admin-users-list></div>
+        </section>
+      </section>
+
+      <section class="admin-detail-panel" data-detail-panel hidden>
+        <div class="admin-detail-card">
+          <header>
+            <div>
+              <p class="section-kicker">Détail</p>
+              <h2 data-detail-title>Demande</h2>
+            </div>
+            <button type="button" class="admin-icon-button" data-detail-close aria-label="Fermer">×</button>
+          </header>
+          <div class="admin-detail-content" data-detail-content></div>
+        </div>
+      </section>
+
+      <section class="admin-reply-panel" data-reply-panel hidden>
+        <div class="admin-reply-card">
+          <header>
+            <div>
+              <p class="section-kicker">Répondre</p>
+              <h2 data-reply-title>Répondre à la demande</h2>
+              <p data-reply-recipient></p>
+            </div>
+            <button type="button" class="admin-icon-button" data-reply-close aria-label="Fermer">×</button>
+          </header>
+          <form data-reply-form>
+            <input name="request_id" type="hidden">
+            <label>Message de réponse
+              <textarea name="message" rows="7" required></textarea>
+            </label>
+            <button class="button button-primary" type="submit">Envoyer la réponse</button>
+            <p data-reply-feedback aria-live="polite"></p>
+          </form>
+        </div>
       </section>
     </main>
 
