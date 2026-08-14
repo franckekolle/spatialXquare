@@ -57,7 +57,7 @@ export async function hashPassword(password) {
 export async function verifyPassword(password, stored) {
   const parts = String(stored || "").split(":");
   const hasIterationPrefix = parts.length === 3;
-  const iterations = hasIterationPrefix ? Number(parts[0]) : 120000;
+  const iterations = hasIterationPrefix ? Number(parts[0]) : PASSWORD_ITERATIONS;
   const saltB64 = hasIterationPrefix ? parts[1] : parts[0];
   const hashB64 = hasIterationPrefix ? parts[2] : parts[1];
 
