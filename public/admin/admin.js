@@ -286,7 +286,7 @@ async function loadAdminUsers() {
     <div class="admin-table-wrap">
       <table class="admin-table admin-users-table">
         <thead>
-          <tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Statut</th><th>Créé le</th></tr>
+          <tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Statut</th><th>Créé le</th><th>Actions</th></tr>
         </thead>
         <tbody>
           ${result.users.map((user) => `
@@ -296,6 +296,14 @@ async function loadAdminUsers() {
               <td>${escapeHtml(user.role)}</td>
               <td>${user.active ? "Actif" : "Désactivé"}</td>
               <td>${escapeHtml(new Date(user.created_at).toLocaleString("fr-FR"))}</td>
+              <td>${user.active ? `
+                <div class="admin-row-actions">
+                  <button type="button" data-user-role="${escapeHtml(user.id)}" data-next-role="${user.role === "super_admin" ? "admin" : "super_admin"}">
+                    ${user.role === "super_admin" ? "Rétrograder" : "Promouvoir"}
+                  </button>
+                  <button type="button" class="danger" data-delete-user="${escapeHtml(user.id)}" data-user-email="${escapeHtml(user.email)}">Supprimer</button>
+                </div>
+              ` : "—"}</td>
             </tr>
           `).join("")}
         </tbody>
@@ -504,6 +512,57 @@ usersForm.addEventListener("submit", async (event) => {
   usersForm.reset();
   usersFeedback.textContent = "Administrateur ajouté.";
   await loadAdminUsers();
+});
+
+usersList.addEventListener("click", async (event) => {
+  const roleButton = event.target.closest("[data-user-role]");
+  const deleteButton = event.target.closest("[data-delete-user]");
+  if (!roleButton && !deleteButton) return;
+
+  const button = roleButton || deleteButton;
+  const userId = roleButton ? roleButton.dataset.userRole : deleteButton.dataset.deleteUser;
+  const isDelete = Boolean(deleteButton);
+  const actionLabel = isDelete
+    ? `supprimer le compte ${deleteButton.dataset.userEmail}`
+    : `${roleButton.dataset.nextRole === "super_admin" ? "promouvoir" : "rétrograder"} ce compte`;
+  if (!confirm(`Voulez-vous vraiment ${actionLabel} ?`)) return;
+
+  button.disabled = true;
+  usersFeedback.textContent = "Mise à jour du compte...";
+
+  try {
+    const { response, result } = await fetchJson("/api/admin/users", {
+      method: isDelete ? "DELETE" : "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: userId,
+        ...(isDelete ? {} : { role: roleButton.dataset.nextRole })
+      })
+    });
+
+    if (!response.ok || !result.ok) {
+      usersFeedback.textContent = result.error || "Mise à jour impossible.";
+      button.disabled = false;
+      return;
+    }
+
+    usersFeedback.textContent = isDelete ? "Compte supprimé." : "Rôle mis à jour.";
+    if (isDelete && userId === currentUser.id) {
+      currentUser = null;
+      showDashboard(false);
+      return;
+    }
+    if (!isDelete && userId === currentUser.id && roleButton.dataset.nextRole === "admin") {
+      currentUser.role = "admin";
+      usersSection.hidden = true;
+      adminUser.textContent = `Connecté : ${currentUser.email} · admin`;
+      return;
+    }
+    await loadAdminUsers();
+  } catch (error) {
+    usersFeedback.textContent = "Le serveur ne répond pas. Mise à jour impossible.";
+    button.disabled = false;
+  }
 });
 
 loadDashboard();

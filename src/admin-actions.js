@@ -188,3 +188,64 @@ export async function handleCreateAdmin(request, env) {
 
   return json({ ok: true, user: { id, email, name: name || null, role: "admin", active: 1 } }, { status: 201 });
 }
+
+export async function handleUpdateAdmin(request, env) {
+  const auth = await requireSuperAdmin(request, env);
+  if (auth.error) return auth.error;
+
+  const payload = await request.json();
+  const userId = clean(payload.user_id);
+  const role = clean(payload.role);
+  if (!userId) return json({ ok: false, error: "user_id requis." }, { status: 400 });
+  if (!["admin", "super_admin"].includes(role)) {
+    return json({ ok: false, error: "Rôle invalide." }, { status: 400 });
+  }
+
+  const target = await env.DB.prepare("SELECT id, role, active FROM users WHERE id = ?").bind(userId).first();
+  if (!target) return json({ ok: false, error: "Administrateur introuvable." }, { status: 404 });
+  if (!target.active) return json({ ok: false, error: "Ce compte est désactivé." }, { status: 409 });
+
+  if (target.role === "super_admin" && role === "admin") {
+    const result = await env.DB.prepare(`
+      UPDATE users SET role = 'admin'
+      WHERE id = ? AND role = 'super_admin' AND active = 1
+        AND (SELECT COUNT(*) FROM users WHERE role = 'super_admin' AND active = 1) > 1
+    `).bind(userId).run();
+    if (!result.meta?.changes) {
+      return json({ ok: false, error: "Impossible de rétrograder le dernier super administrateur." }, { status: 409 });
+    }
+  } else {
+    await env.DB.prepare("UPDATE users SET role = ? WHERE id = ? AND active = 1").bind(role, userId).run();
+  }
+
+  return json({ ok: true, user_id: userId, role });
+}
+
+export async function handleDeleteAdmin(request, env) {
+  const auth = await requireSuperAdmin(request, env);
+  if (auth.error) return auth.error;
+
+  const { user_id: rawUserId } = await request.json();
+  const userId = clean(rawUserId);
+  if (!userId) return json({ ok: false, error: "user_id requis." }, { status: 400 });
+
+  const target = await env.DB.prepare("SELECT id, role, active FROM users WHERE id = ?").bind(userId).first();
+  if (!target) return json({ ok: false, error: "Administrateur introuvable." }, { status: 404 });
+  if (!target.active) return json({ ok: false, error: "Ce compte est déjà supprimé." }, { status: 409 });
+
+  const result = await env.DB.prepare(`
+    UPDATE users SET active = 0
+    WHERE id = ? AND active = 1
+      AND (role != 'super_admin' OR (SELECT COUNT(*) FROM users WHERE role = 'super_admin' AND active = 1) > 1)
+      AND (id != ? OR (SELECT COUNT(*) FROM users WHERE active = 1) > 1)
+  `).bind(userId, auth.user.id).run();
+
+  if (!result.meta?.changes) {
+    if (target.role === "super_admin") {
+      return json({ ok: false, error: "Impossible de supprimer le dernier super administrateur. Promouvez d’abord un autre compte." }, { status: 409 });
+    }
+    return json({ ok: false, error: "Impossible de supprimer votre compte lorsqu’il est le seul compte actif." }, { status: 409 });
+  }
+
+  return json({ ok: true, deleted: userId });
+}
