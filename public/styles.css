@@ -4058,6 +4058,13 @@ input:focus-visible {
   display: grid;
   gap: 10px;
   justify-items: end;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.floating-contact.is-scroll-hidden {
+  opacity: 0;
+  transform: translateY(calc(100% + 32px));
+  pointer-events: none;
 }
 
 .floating-contact-panel {
@@ -4189,6 +4196,19 @@ input:focus-visible {
 
 .floating-contact__button--contact {
   background: var(--navy);
+}
+
+.hero-section-title {
+  margin: 30px 0 0;
+  color: var(--white);
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  font-weight: 950;
+}
+
+.quote-panel .button {
+  width: 100%;
+  margin-top: 18px;
+  text-align: center;
 }
 
 .admin-page {
@@ -4588,7 +4608,7 @@ input:focus-visible {
 
 .admin-user-form {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
   gap: 12px;
   align-items: end;
 }
@@ -4604,6 +4624,39 @@ input:focus-visible {
   min-height: 42px;
   padding: 10px 11px;
   border: 1px solid var(--line);
+}
+
+.password-field {
+  position: relative;
+  display: block;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 48px !important;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  width: 36px;
+  min-height: 34px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 4px;
+  color: var(--navy);
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.password-toggle:hover,
+.password-toggle:focus-visible,
+.password-toggle.is-visible {
+  background: #eef4f8;
 }
 
 .admin-user-form p {

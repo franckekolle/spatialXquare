@@ -154,7 +154,7 @@ export async function handleListAdmins(request, env) {
   if (auth.error) return auth.error;
 
   const users = await env.DB.prepare(`
-    SELECT id, email, name, role, active, created_at
+    SELECT id, email, name, username, id_name, role, active, created_at
     FROM users
     ORDER BY created_at ASC
   `).all();
@@ -169,24 +169,32 @@ export async function handleCreateAdmin(request, env) {
   const payload = await request.json();
   const email = clean(payload.email).toLowerCase();
   const password = String(payload.password || "");
+  const passwordConfirmation = String(payload.password_confirmation || "");
   const name = clean(payload.name);
+  const username = clean(payload.username);
+  const idName = clean(payload.id_name);
 
-  if (!email || !password) {
-    return json({ ok: false, error: "Email et mot de passe requis." }, { status: 400 });
+  if (!email || !password || !passwordConfirmation || !username || !idName) {
+    return json({ ok: false, error: "Email, nom d’utilisateur, ID name, mot de passe et confirmation requis." }, { status: 400 });
+  }
+  if (!/^[a-zA-Z0-9._-]{3,32}$/.test(username)) return json({ ok: false, error: "Nom d’utilisateur invalide." }, { status: 400 });
+  if (!/^[a-zA-Z0-9_-]{3,40}$/.test(idName)) return json({ ok: false, error: "ID name invalide." }, { status: 400 });
+  if (password !== passwordConfirmation) {
+    return json({ ok: false, error: "Les deux mots de passe ne correspondent pas." }, { status: 400 });
   }
 
   const id = crypto.randomUUID();
   const passwordHash = await hashPassword(password);
 
   try {
-    await env.DB.prepare("INSERT INTO users (id, email, password_hash, name, role, active) VALUES (?, ?, ?, ?, ?, ?)")
-      .bind(id, email, passwordHash, name || null, "admin", 1)
+    await env.DB.prepare("INSERT INTO users (id, email, password_hash, name, username, id_name, role, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
+      .bind(id, email, passwordHash, name || null, username, idName, "admin", 1)
       .run();
   } catch (error) {
-    return json({ ok: false, error: "Email déjà utilisé." }, { status: 409 });
+    return json({ ok: false, error: "L’e-mail, le nom d’utilisateur ou l’ID name est déjà utilisé." }, { status: 409 });
   }
 
-  return json({ ok: true, user: { id, email, name: name || null, role: "admin", active: 1 } }, { status: 201 });
+  return json({ ok: true, user: { id, email, name: name || null, username, id_name: idName, role: "admin", active: 1 } }, { status: 201 });
 }
 
 export async function handleUpdateAdmin(request, env) {
@@ -205,18 +213,7 @@ export async function handleUpdateAdmin(request, env) {
   if (!target) return json({ ok: false, error: "Administrateur introuvable." }, { status: 404 });
   if (!target.active) return json({ ok: false, error: "Ce compte est désactivé." }, { status: 409 });
 
-  if (target.role === "super_admin" && role === "admin") {
-    const result = await env.DB.prepare(`
-      UPDATE users SET role = 'admin'
-      WHERE id = ? AND role = 'super_admin' AND active = 1
-        AND (SELECT COUNT(*) FROM users WHERE role = 'super_admin' AND active = 1) > 1
-    `).bind(userId).run();
-    if (!result.meta?.changes) {
-      return json({ ok: false, error: "Impossible de rétrograder le dernier super administrateur." }, { status: 409 });
-    }
-  } else {
-    await env.DB.prepare("UPDATE users SET role = ? WHERE id = ? AND active = 1").bind(role, userId).run();
-  }
+  await env.DB.prepare("UPDATE users SET role = ? WHERE id = ? AND active = 1").bind(role, userId).run();
 
   return json({ ok: true, user_id: userId, role });
 }
@@ -229,23 +226,8 @@ export async function handleDeleteAdmin(request, env) {
   const userId = clean(rawUserId);
   if (!userId) return json({ ok: false, error: "user_id requis." }, { status: 400 });
 
-  const target = await env.DB.prepare("SELECT id, role, active FROM users WHERE id = ?").bind(userId).first();
-  if (!target) return json({ ok: false, error: "Administrateur introuvable." }, { status: 404 });
-  if (!target.active) return json({ ok: false, error: "Ce compte est déjà supprimé." }, { status: 409 });
-
-  const result = await env.DB.prepare(`
-    UPDATE users SET active = 0
-    WHERE id = ? AND active = 1
-      AND (role != 'super_admin' OR (SELECT COUNT(*) FROM users WHERE role = 'super_admin' AND active = 1) > 1)
-      AND (id != ? OR (SELECT COUNT(*) FROM users WHERE active = 1) > 1)
-  `).bind(userId, auth.user.id).run();
-
-  if (!result.meta?.changes) {
-    if (target.role === "super_admin") {
-      return json({ ok: false, error: "Impossible de supprimer le dernier super administrateur. Promouvez d’abord un autre compte." }, { status: 409 });
-    }
-    return json({ ok: false, error: "Impossible de supprimer votre compte lorsqu’il est le seul compte actif." }, { status: 409 });
-  }
+  const result = await env.DB.prepare("DELETE FROM users WHERE id = ?").bind(userId).run();
+  if (!result.meta?.changes) return json({ ok: false, error: "Administrateur introuvable." }, { status: 404 });
 
   return json({ ok: true, deleted: userId });
 }

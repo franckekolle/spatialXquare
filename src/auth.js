@@ -78,7 +78,7 @@ export async function currentUser(request, env) {
   const session = await env.SESSIONS.get(sessionId, "json");
   if (!session?.userId) return null;
 
-  return env.DB.prepare("SELECT id, email, name, role, active, created_at FROM users WHERE id = ? AND active = 1")
+  return env.DB.prepare("SELECT id, email, name, username, id_name, role, active, created_at FROM users WHERE id = ? AND active = 1")
     .bind(session.userId)
     .first();
 }
@@ -87,9 +87,16 @@ export async function handleSignup(request, env) {
   const bindingError = requireBindings(env);
   if (bindingError) return bindingError;
 
-  const { email, password, name, signup_code: signupCode } = await request.json();
-  if (!email || !password) {
-    return json({ ok: false, error: "Email et mot de passe requis." }, { status: 400 });
+  const { email, password, password_confirmation: passwordConfirmation, name, username: rawUsername, id_name: rawIdName, signup_code: signupCode } = await request.json();
+  const username = String(rawUsername || "").trim();
+  const idName = String(rawIdName || "").trim();
+  if (!email || !password || !passwordConfirmation || !username || !idName) {
+    return json({ ok: false, error: "Email, nom d’utilisateur, ID name, mot de passe et confirmation requis." }, { status: 400 });
+  }
+  if (!/^[a-zA-Z0-9._-]{3,32}$/.test(username)) return json({ ok: false, error: "Le nom d’utilisateur doit contenir 3 à 32 lettres, chiffres, points, tirets ou underscores." }, { status: 400 });
+  if (!/^[a-zA-Z0-9_-]{3,40}$/.test(idName)) return json({ ok: false, error: "L’ID name doit contenir 3 à 40 lettres, chiffres, tirets ou underscores." }, { status: 400 });
+  if (password !== passwordConfirmation) {
+    return json({ ok: false, error: "Les deux mots de passe ne correspondent pas." }, { status: 400 });
   }
 
   const userCount = await env.DB.prepare("SELECT COUNT(*) AS total FROM users").first();
@@ -115,14 +122,14 @@ export async function handleSignup(request, env) {
   const role = hasUsers ? "admin" : "super_admin";
 
   try {
-    await env.DB.prepare("INSERT INTO users (id, email, password_hash, name, role, active) VALUES (?, ?, ?, ?, ?, ?)")
-      .bind(id, String(email).toLowerCase().trim(), passwordHash, name || null, role, 1)
+    await env.DB.prepare("INSERT INTO users (id, email, password_hash, name, username, id_name, role, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
+      .bind(id, String(email).toLowerCase().trim(), passwordHash, name || null, username, idName, role, 1)
       .run();
   } catch (error) {
-    return json({ ok: false, error: "Email déjà utilisé." }, { status: 409 });
+    return json({ ok: false, error: "L’e-mail, le nom d’utilisateur ou l’ID name est déjà utilisé." }, { status: 409 });
   }
 
-  return json({ ok: true, user: { id, email, name: name || null, role } }, { status: 201 });
+  return json({ ok: true, user: { id, email, name: name || null, username, id_name: idName, role } }, { status: 201 });
 }
 
 export async function handleLogin(request, env) {

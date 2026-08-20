@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exigences pour une demande de devis | SpatialXquare</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+      .requirements { width: min(850px, calc(100% - 32px)); margin: 48px auto; color: #10243d; }
+      .requirements header { border-bottom: 4px solid #f3c51c; padding-bottom: 20px; }
+      .requirements h1 { color: #062d5b; }
+      .requirements section { break-inside: avoid; margin-top: 28px; }
+      .requirements li { margin: 8px 0; }
+      .requirements-actions { display: flex; gap: 12px; margin-top: 30px; }
+      @media print { .requirements-actions { display: none; } .requirements { width: 100%; margin: 0; } }
+    </style>
+  </head>
+  <body>
+    <main class="requirements">
+      <header>
+        <p class="section-kicker">SpatialXquare</p>
+        <h1>Exigences nécessaires pour établir un devis</h1>
+        <p>Préparez les informations ci-dessous afin que notre équipe puisse évaluer précisément le périmètre, les délais et le coût de votre projet.</p>
+      </header>
+      <section><h2>1. Domaine et prestation</h2><ul><li>Domaine d’activité concerné.</li><li>Type de prestation souhaité et résultats attendus.</li><li>Contexte, objectifs et contraintes techniques du projet.</li></ul></section>
+      <section><h2>2. Localisation et accès</h2><ul><li>Pays, région, localité et coordonnées GPS si disponibles.</li><li>Surface ou étendue de la zone d’étude.</li><li>Conditions d’accès, autorisations et contraintes de terrain.</li></ul></section>
+      <section><h2>3. Données disponibles</h2><ul><li>Cartes, rapports, données géologiques, géophysiques, SIG ou de forage.</li><li>Formats, volumes, systèmes de coordonnées et qualité connue des données.</li><li>Photos, plans, cahier des charges ou lien de partage des fichiers.</li></ul></section>
+      <section><h2>4. Livrables, délai et budget</h2><ul><li>Livrables attendus et formats de restitution.</li><li>Date de démarrage, échéance et jalons prioritaires.</li><li>Budget indicatif, devise et conditions particulières.</li></ul></section>
+      <section><h2>5. Coordonnées du demandeur</h2><ul><li>Organisation et nom du responsable.</li><li>Adresse e-mail et numéro de téléphone/WhatsApp.</li><li>Informations de facturation si déjà disponibles.</li></ul></section>
+      <div class="requirements-actions">
+        <button class="button button-primary" type="button" onclick="window.print()">Télécharger / enregistrer en PDF</button>
+        <a class="button button-secondary" href="/demande-devis.html">Remplir la demande</a>
+      </div>
+    </main>
+  </body>
+</html>

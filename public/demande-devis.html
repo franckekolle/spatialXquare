@@ -58,6 +58,7 @@
               <li>Planning</li>
               <li>Coordonnées</li>
             </ol>
+            <a class="button button-secondary" href="/exigences-devis.html" target="_blank">Exigences pour le devis (PDF)</a>
           </aside>
 
           <form class="quote-form" data-quote-form>
@@ -73,21 +74,19 @@
 
             <fieldset data-project-fieldset>
               <legend data-project-legend>Votre projet</legend>
-              <label data-quote-field="service">Type de prestation
-                <select name="service" data-service-select required>
+              <label data-quote-field="domain">Domaine d’activité
+                <select name="domain" data-domain-select required>
+                  <option value="">Sélectionner un domaine</option>
+                  <option value="geosciences">Géosciences, mines & cartographie</option>
+                  <option value="data">Data Science, IA & logiciels</option>
+                  <option value="energie">Énergies renouvelables & eau</option>
+                  <option value="formation">Formations opérationnelles</option>
+                  <option value="autre">Autre domaine</option>
+                </select>
+              </label>
+              <label data-quote-field="service" hidden>Type de prestation
+                <select name="service" data-service-select disabled required>
                   <option value="">Sélectionner une prestation</option>
-                  <option value="contact">Contact général</option>
-                  <option value="geophysique">Géophysique appliquée</option>
-                  <option value="exploration">Exploration minière</option>
-                  <option value="eau">Recherche d’eau souterraine</option>
-                  <option value="sig">Cartographie / SIG</option>
-                  <option value="formation">Formation / renforcement des capacités</option>
-                  <option value="geomodelisation">Géomodélisation 3D</option>
-                  <option value="geologie">Géologie / études minières</option>
-                  <option value="forage">Gestion de campagne de forage</option>
-                  <option value="data">Data Science / IA</option>
-                  <option value="energie">Énergies renouvelables</option>
-                  <option value="autre">Autre</option>
                 </select>
               </label>
               <label data-quote-field="project_name">Nom du projet <input name="project_name" type="text" required></label>

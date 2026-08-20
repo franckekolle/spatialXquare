@@ -30,6 +30,8 @@ const usersSection = document.querySelector("[data-admin-users-section]");
 const usersForm = document.querySelector("[data-admin-user-form]");
 const usersList = document.querySelector("[data-admin-users-list]");
 const usersFeedback = document.querySelector("[data-admin-user-feedback]");
+const authPassword = document.querySelector("[data-auth-password]");
+const authPasswordConfirmation = document.querySelector("[data-password-confirmation]");
 
 let authMode = "login";
 let projects = [];
@@ -69,6 +71,15 @@ function showDashboard(isVisible) {
   dashboardSection.hidden = !isVisible;
 }
 
+function resetPasswordVisibility(form) {
+  form.querySelectorAll("[data-password-toggle]").forEach((toggle) => {
+    const input = toggle.closest(".password-field")?.querySelector("input");
+    if (input) input.type = "password";
+    toggle.setAttribute("aria-pressed", "false");
+    toggle.classList.remove("is-visible");
+  });
+}
+
 function setAuthMode(mode) {
   authMode = mode;
   const isSignup = mode === "signup";
@@ -79,6 +90,15 @@ function setAuthMode(mode) {
   signupOnlyFields.forEach((field) => {
     field.hidden = !isSignup;
   });
+  authForm.querySelectorAll("[data-signup-required]").forEach((input) => {
+    input.disabled = !isSignup;
+    input.required = isSignup;
+  });
+  authPassword.autocomplete = isSignup ? "new-password" : "current-password";
+  authPasswordConfirmation.disabled = !isSignup;
+  authPasswordConfirmation.required = isSignup;
+  if (!isSignup) authPasswordConfirmation.value = "";
+  resetPasswordVisibility(authForm);
   authSubmit.textContent = isSignup ? "Créer le compte admin" : "Se connecter";
   adminIntro.textContent = isSignup
     ? "Créez un compte administrateur. Après le premier compte, le code d’inscription admin est obligatoire."
@@ -286,12 +306,14 @@ async function loadAdminUsers() {
     <div class="admin-table-wrap">
       <table class="admin-table admin-users-table">
         <thead>
-          <tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Statut</th><th>Créé le</th><th>Actions</th></tr>
+          <tr><th>Nom</th><th>Utilisateur</th><th>ID name</th><th>Email</th><th>Rôle</th><th>Statut</th><th>Créé le</th><th>Actions</th></tr>
         </thead>
         <tbody>
           ${result.users.map((user) => `
             <tr>
               <td>${escapeHtml(user.name || "-")}</td>
+              <td>${escapeHtml(user.username || "-")}</td>
+              <td>${escapeHtml(user.id_name || "-")}</td>
               <td>${escapeHtml(user.email)}</td>
               <td>${escapeHtml(user.role)}</td>
               <td>${user.active ? "Actif" : "Désactivé"}</td>
@@ -316,12 +338,31 @@ authButtons.forEach((button) => {
   button.addEventListener("click", () => setAuthMode(button.dataset.authMode));
 });
 
+document.addEventListener("click", (event) => {
+  const toggle = event.target.closest("[data-password-toggle]");
+  if (!toggle) return;
+
+  const input = toggle.closest(".password-field")?.querySelector("input");
+  if (!input) return;
+
+  const isVisible = input.type === "text";
+  input.type = isVisible ? "password" : "text";
+  toggle.setAttribute("aria-pressed", String(!isVisible));
+  toggle.setAttribute("aria-label", `${isVisible ? "Afficher" : "Masquer"} ${input.name === "signup_code" ? "le code d’inscription" : "le mot de passe"}`);
+  toggle.classList.toggle("is-visible", !isVisible);
+});
+
 authForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   loginFeedback.textContent = authMode === "signup" ? "Création du compte..." : "Connexion...";
   authSubmit.disabled = true;
 
   const formData = new FormData(authForm);
+  if (authMode === "signup" && formData.get("password") !== formData.get("password_confirmation")) {
+    loginFeedback.textContent = "Les deux mots de passe ne correspondent pas.";
+    authSubmit.disabled = false;
+    return;
+  }
   let response;
   let result;
 
@@ -334,7 +375,10 @@ authForm.addEventListener("submit", async (event) => {
       body: JSON.stringify({
         email: formData.get("email"),
         password: formData.get("password"),
+        password_confirmation: formData.get("password_confirmation"),
         name: formData.get("name"),
+        username: formData.get("username"),
+        id_name: formData.get("id_name"),
         signup_code: formData.get("signup_code")
       })
     }));
@@ -354,6 +398,7 @@ authForm.addEventListener("submit", async (event) => {
   }
 
   authForm.reset();
+  resetPasswordVisibility(authForm);
 
   if (authMode === "signup") {
     setAuthMode("login");
@@ -492,6 +537,10 @@ usersForm.addEventListener("submit", async (event) => {
   usersFeedback.textContent = "Création de l’administrateur...";
 
   const formData = new FormData(usersForm);
+  if (formData.get("password") !== formData.get("password_confirmation")) {
+    usersFeedback.textContent = "Les deux mots de passe ne correspondent pas.";
+    return;
+  }
   const { response, result } = await fetchJson("/api/admin/users", {
     method: "POST",
     headers: {
@@ -499,8 +548,11 @@ usersForm.addEventListener("submit", async (event) => {
     },
     body: JSON.stringify({
       name: formData.get("name"),
+      username: formData.get("username"),
+      id_name: formData.get("id_name"),
       email: formData.get("email"),
-      password: formData.get("password")
+      password: formData.get("password"),
+      password_confirmation: formData.get("password_confirmation")
     })
   });
 
@@ -510,6 +562,7 @@ usersForm.addEventListener("submit", async (event) => {
   }
 
   usersForm.reset();
+  resetPasswordVisibility(usersForm);
   usersFeedback.textContent = "Administrateur ajouté.";
   await loadAdminUsers();
 });

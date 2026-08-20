@@ -2,6 +2,7 @@ const form = document.querySelector("[data-quote-form]");
 const modeButtons = document.querySelectorAll("[data-quote-mode]");
 const detailedFields = document.querySelector("[data-detailed-fields]");
 const serviceSelect = document.querySelector("[data-service-select]");
+const domainSelect = document.querySelector("[data-domain-select]");
 const servicePanels = document.querySelectorAll("[data-service-panel]");
 const feedback = document.querySelector("[data-quote-feedback]");
 const requestTypeInput = document.querySelector("[data-request-type]");
@@ -30,6 +31,32 @@ const serviceLabels = {
   energie: "Énergies renouvelables",
   autre: "Autre"
 };
+
+const servicesByDomain = {
+  geosciences: ["geophysique", "exploration", "geomodelisation", "geologie", "forage", "sig"],
+  data: ["data", "sig"],
+  energie: ["energie", "eau"],
+  formation: ["formation"],
+  autre: ["autre"]
+};
+
+function domainForService(service) {
+  return Object.entries(servicesByDomain).find(([, services]) => services.includes(service))?.[0] || "";
+}
+
+function updateServiceChoices(preselectedService = "") {
+  const services = servicesByDomain[domainSelect.value] || [];
+  serviceSelect.innerHTML = [
+    '<option value="">Sélectionner une prestation</option>',
+    ...services.map((service) => `<option value="${service}">${serviceLabel(service)}</option>`)
+  ].join("");
+  const showService = services.length > 0;
+  setFieldVisible("service", showService);
+  serviceSelect.disabled = !showService;
+  serviceSelect.required = showService;
+  if (showService && services.includes(preselectedService)) serviceSelect.value = preselectedService;
+  updateServicePanel();
+}
 
 const params = new URLSearchParams(window.location.search);
 
@@ -125,6 +152,7 @@ function buildMessage(formData, requestId) {
   const lines = [
     `Identifiant: ${requestId}`,
     `Type de demande: ${formData.get("request_type") || "quote"}`,
+    `Domaine d’activité: ${formData.get("domain") || ""}`,
     `Service: ${formData.get("service") || ""}`,
     `Offre / contexte: ${formData.get("offer") || ""}`,
     `Page d'origine: ${formData.get("source_page") || ""}`,
@@ -175,6 +203,7 @@ function buildMessage(formData, requestId) {
 function payloadFromForm(formData) {
   return {
     request_type: formData.get("request_type") || "quote",
+    domain: formData.get("domain") || "",
     service: formData.get("service") || "",
     offer: formData.get("offer") || "",
     source_page: formData.get("source_page") || "",
@@ -266,12 +295,18 @@ function applyRequestContext() {
 
   if (requestedService) serviceSelect.value = requestedService;
 
-  setFieldVisible("service", !isContact);
+  const requestedDomain = domainForService(requestedService);
+  if (requestedDomain) domainSelect.value = requestedDomain;
+  updateServiceChoices(requestedService);
+
+  setFieldVisible("domain", !isContact);
+  setFieldVisible("service", !isContact && Boolean(domainSelect.value));
   setFieldVisible("project_name", !isContact);
   setFieldVisible("location", !isContact);
   setFieldVisible("organization", !isContact);
   setFieldVisible("contact_name", !isContact);
 
+  setRequired("domain", !isContact);
   setRequired("service", !isContact);
   setRequired("project_name", !isContact);
   setRequired("location", !isContact);
@@ -279,7 +314,10 @@ function applyRequestContext() {
   setRequired("phone", isContact);
 
   if (isContact) {
+    serviceSelect.innerHTML = '<option value="contact">Contact général</option>';
     serviceSelect.value = "contact";
+    domainSelect.disabled = true;
+    serviceSelect.disabled = true;
     field("project_name").value = "Contact général";
     field("location").value = "";
     field("contact_name").value = "Contact site web";
@@ -292,6 +330,7 @@ function applyRequestContext() {
     panelTitle.textContent = "Contact simple";
     panelText.textContent = "Ce formulaire est volontairement court pour les demandes générales.";
   } else {
+    domainSelect.disabled = false;
     quoteMode.hidden = false;
     projectLegend.textContent = "Votre projet";
     needLabel.textContent = "Quel est votre besoin ?";
@@ -310,6 +349,7 @@ modeButtons.forEach((button) => {
   button.addEventListener("click", () => setMode(button.dataset.quoteMode));
 });
 
+domainSelect.addEventListener("change", () => updateServiceChoices());
 serviceSelect.addEventListener("change", updateServicePanel);
 
 form.addEventListener("submit", async (event) => {

@@ -207,8 +207,8 @@ function HeroSection() {
           <p class="hero-subtitle">Geosciences, Data Science & IA et solutions energetiques pour un developpement durable.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="decouvrir-spatialxquare.html">Decouvrir SpatialXquare</a>
-            <a class="button button-secondary" href="#expertises">Explorer nos expertises</a>
           </div>
+          <h2 class="hero-section-title">Explorer nos expertises</h2>
         </div>
       </div>
     </section>

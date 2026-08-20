@@ -25,6 +25,7 @@ function validatePayload(payload) {
   }
 
   if (!cleanString(payload.service)) errors.push("Le type de prestation est obligatoire.");
+  if (!cleanString(payload.domain)) errors.push("Le domaine d’activité est obligatoire.");
   if (!cleanString(payload.project_name)) errors.push("Le nom du projet est obligatoire.");
   if (!cleanString(payload.contact_name)) errors.push("Le nom du responsable est obligatoire.");
 
@@ -114,6 +115,7 @@ function emailText(payload, ids) {
   return [
     `Identifiant: ${ids.request_id}`,
     `Type de demande: ${cleanString(payload.request_type) || "quote"}`,
+    `Domaine d’activité: ${cleanString(payload.domain)}`,
     `Service: ${cleanString(payload.service)}`,
     `Offre / contexte: ${cleanString(payload.offer)}`,
     `Page d'origine: ${cleanString(payload.source_page)}`,

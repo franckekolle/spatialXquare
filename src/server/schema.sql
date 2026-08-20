@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS users (
   email TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
   name TEXT,
+  username TEXT COLLATE NOCASE UNIQUE NOT NULL,
+  id_name TEXT COLLATE NOCASE UNIQUE NOT NULL,
   role TEXT NOT NULL DEFAULT 'admin',
   active INTEGER NOT NULL DEFAULT 1,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
@@ -10,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS sessions (
   id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL REFERENCES users(id),
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   expires_at TEXT NOT NULL,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -107,14 +109,14 @@ CREATE TABLE IF NOT EXISTS quote_items (
 CREATE TABLE IF NOT EXISTS request_replies (
   id TEXT PRIMARY KEY,
   project_id TEXT NOT NULL,
-  user_id TEXT NOT NULL,
+  user_id TEXT,
   subject TEXT NOT NULL,
   message TEXT NOT NULL,
   recipient_email TEXT NOT NULL,
   resend_id TEXT,
   created_at TEXT NOT NULL,
   FOREIGN KEY (project_id) REFERENCES projects(id),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 CREATE INDEX IF NOT EXISTS idx_projects_status ON projects(status);

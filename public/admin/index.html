@@ -25,14 +25,32 @@
           <label data-signup-only hidden>Nom
             <input name="name" type="text" autocomplete="name">
           </label>
+          <label data-signup-only hidden>Nom d’utilisateur
+            <input name="username" type="text" autocomplete="username" minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" data-signup-required>
+          </label>
+          <label data-signup-only hidden>ID name
+            <input name="id_name" type="text" minlength="3" maxlength="40" pattern="[A-Za-z0-9_-]+" data-signup-required>
+          </label>
           <label data-signup-only hidden>Code d’inscription admin
-            <input name="signup_code" type="password" autocomplete="off">
+            <span class="password-field">
+              <input name="signup_code" type="password" autocomplete="off">
+              <button type="button" class="password-toggle" data-password-toggle aria-label="Afficher le code d’inscription" aria-pressed="false">👁</button>
+            </span>
           </label>
           <label>E-mail
             <input name="email" type="email" autocomplete="email" required>
           </label>
           <label>Mot de passe
-            <input name="password" type="password" autocomplete="current-password" required>
+            <span class="password-field">
+              <input name="password" type="password" autocomplete="current-password" required data-auth-password>
+              <button type="button" class="password-toggle" data-password-toggle aria-label="Afficher le mot de passe" aria-pressed="false">👁</button>
+            </span>
+          </label>
+          <label data-signup-only hidden>Confirmer le mot de passe
+            <span class="password-field">
+              <input name="password_confirmation" type="password" autocomplete="new-password" data-password-confirmation disabled>
+              <button type="button" class="password-toggle" data-password-toggle aria-label="Afficher la confirmation du mot de passe" aria-pressed="false">👁</button>
+            </span>
           </label>
           <button class="button button-primary" type="submit" data-auth-submit>Se connecter</button>
           <p data-login-feedback aria-live="polite"></p>
@@ -94,11 +112,26 @@
             <label>Nom
               <input name="name" type="text" autocomplete="name">
             </label>
+            <label>Nom d’utilisateur
+              <input name="username" type="text" autocomplete="username" minlength="3" maxlength="32" pattern="[A-Za-z0-9._-]+" required>
+            </label>
+            <label>ID name
+              <input name="id_name" type="text" minlength="3" maxlength="40" pattern="[A-Za-z0-9_-]+" required>
+            </label>
             <label>E-mail
               <input name="email" type="email" autocomplete="email" required>
             </label>
             <label>Mot de passe provisoire
-              <input name="password" type="password" autocomplete="new-password" required>
+              <span class="password-field">
+                <input name="password" type="password" autocomplete="new-password" required>
+                <button type="button" class="password-toggle" data-password-toggle aria-label="Afficher le mot de passe" aria-pressed="false">👁</button>
+              </span>
+            </label>
+            <label>Confirmer le mot de passe
+              <span class="password-field">
+                <input name="password_confirmation" type="password" autocomplete="new-password" required>
+                <button type="button" class="password-toggle" data-password-toggle aria-label="Afficher la confirmation du mot de passe" aria-pressed="false">👁</button>
+              </span>
             </label>
             <button class="button button-primary" type="submit">Ajouter un admin</button>
             <p data-admin-user-feedback aria-live="polite"></p>

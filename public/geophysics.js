@@ -36,9 +36,9 @@ function GeophysicsHero() {
         <p class="geo-hero__intro">${hero.intro}</p>
         <strong>${hero.statement}</strong>
         <div class="hero-actions">
-          <a class="button button-primary" href="#applications">Explorer les applications</a>
-          <a class="button button-secondary" href="/demande-devis.html?service=geophysique">Discuter d’un projet</a>
+          <a class="button button-primary" href="/demande-devis.html?service=geophysique">Discuter d’un projet</a>
         </div>
+        <h2 class="hero-section-title">Explorer les applications</h2>
       </div>
     </section>
   `;

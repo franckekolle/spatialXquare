@@ -154,6 +154,22 @@ function FloatingContact() {
     if (isOpen) panel.querySelector("input").focus();
   }
 
+  let lastScrollY = window.scrollY;
+  let scrollTicking = false;
+  function updateVisibility() {
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > lastScrollY && currentScrollY > 120;
+    wrapper.classList.toggle("is-scroll-hidden", scrollingDown && panel.hidden);
+    lastScrollY = currentScrollY;
+    scrollTicking = false;
+  }
+  window.addEventListener("scroll", () => {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(updateVisibility);
+      scrollTicking = true;
+    }
+  }, { passive: true });
+
   contact.addEventListener("click", () => setOpen(panel.hidden));
   close.addEventListener("click", () => setOpen(false));
   document.addEventListener("pointerdown", (event) => {
